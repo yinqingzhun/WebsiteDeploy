@@ -1,0 +1,320 @@
+2015-10-26 15:46:00,661 [9] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:00,778 [9] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:00,801 [9] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:00,819 [9] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:00,837 [9] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:00,855 [9] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:00,869 [9] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:00,884 [9] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:34,967 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:34,991 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:35,008 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:35,031 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:35,057 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:35,074 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:35,088 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:46:35,105 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:56:52,541 [7] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:56:52,570 [7] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:56:52,590 [7] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:56:52,611 [7] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:56:52,626 [7] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:56:52,642 [7] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:56:52,661 [7] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:56:52,677 [7] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:58:42,672 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:58:42,697 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:58:42,718 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:58:42,734 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:58:42,749 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:58:42,767 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:58:42,791 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:58:42,807 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:59:11,383 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:59:11,400 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:59:11,415 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:59:11,435 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:59:11,456 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:59:11,477 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:59:11,502 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37
+2015-10-26 15:59:11,517 [8] ERROR DefaultLog - 复制对象失败
+System.Reflection.TargetException: 对象与目标类型不匹配。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 WebDeploy.Utils.ObjectCopier.Copy[T](Object source) 位置 e:\code\WebDeploy\Utils\ObjectCopier.cs:行号 37

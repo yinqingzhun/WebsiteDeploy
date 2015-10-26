@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebDeploy.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Deploy">
+          <Key>
+            <PropertyRef Name="DeployId" />
+          </Key>
+          <Property Name="DeployId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeployTime" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PackageId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="PackageId" />
+          </Key>
+          <Property Name="PackageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PackageSize" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="Enable" Type="bit" Nullable="false" />
+          <Property Name="Fingerprint" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="File" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PackageReceiver">
+          <Key>
+            <PropertyRef Name="ReceiverId" />
+          </Key>
+          <Property Name="ReceiverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReceiverHostName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeployId" Type="int" Nullable="false" />
+          <Property Name="ReceiveTime" Type="datetime" Nullable="false" />
+          <Property Name="DoneTime" Type="datetime" Nullable="false" />
+          <Property Name="Successful" Type="bit" Nullable="false" />
+          <Property Name="ExtraMsg" Type="varchar(max)" />
+        </EntityType>
+        <EntityContainer Name="WebDeployModelStoreContainer">
+          <EntitySet Name="Deploy" EntityType="Self.Deploy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackageReceiver" EntityType="Self.PackageReceiver" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebDeploy.Model" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="DeployEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="Deploy" EntityType="WebDeploy.Model.Deploy" />
+          <EntitySet Name="Package" EntityType="WebDeploy.Model.Package" />
+          <EntitySet Name="PackageReceiver" EntityType="WebDeploy.Model.PackageReceiver" />
+        </EntityContainer>
+        <EntityType Name="Deploy">
+          <Key>
+            <PropertyRef Name="DeployId" />
+          </Key>
+          <Property Name="DeployId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="DeployTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="PackageId" />
+          </Key>
+          <Property Name="PackageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="PackageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PackageSize" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Enable" Type="Boolean" Nullable="false" />
+          <Property Name="Fingerprint" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="File" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PackageReceiver">
+          <Key>
+            <PropertyRef Name="ReceiverId" />
+          </Key>
+          <Property Name="ReceiverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="ReceiverHostName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeployId" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DoneTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Successful" Type="Boolean" Nullable="false" />
+          <Property Name="ExtraMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebDeployModelStoreContainer" CdmEntityContainer="DeployEntities">
+          <EntitySetMapping Name="Deploy">
+            <EntityTypeMapping TypeName="WebDeploy.Model.Deploy">
+              <MappingFragment StoreEntitySet="Deploy">
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DeployTime" ColumnName="DeployTime" />
+                <ScalarProperty Name="DeployId" ColumnName="DeployId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Package">
+            <EntityTypeMapping TypeName="WebDeploy.Model.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Fingerprint" ColumnName="Fingerprint" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PackageSize" ColumnName="PackageSize" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PackageReceiver">
+            <EntityTypeMapping TypeName="WebDeploy.Model.PackageReceiver">
+              <MappingFragment StoreEntitySet="PackageReceiver">
+                <ScalarProperty Name="ExtraMsg" ColumnName="ExtraMsg" />
+                <ScalarProperty Name="Successful" ColumnName="Successful" />
+                <ScalarProperty Name="DoneTime" ColumnName="DoneTime" />
+                <ScalarProperty Name="ReceiveTime" ColumnName="ReceiveTime" />
+                <ScalarProperty Name="DeployId" ColumnName="DeployId" />
+                <ScalarProperty Name="ReceiverHostName" ColumnName="ReceiverHostName" />
+                <ScalarProperty Name="ReceiverId" ColumnName="ReceiverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="false" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams />
+  </edmx:Designer>
+</edmx:Edmx>

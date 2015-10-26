@@ -1,0 +1,90 @@
+﻿@model IEnumerable<WebDeploy.Models.PackageViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    table{
+        background-color:#e2e2e2;
+        border-collapse:separate;
+        border-spacing:1px;
+    }
+    td{
+        background-color:white;
+        padding:3px;
+    }
+    th{
+        background-image: linear-gradient( 180deg, #f1f1f1, #e6e6e6, #d3d3d3 );
+        padding:5px;
+    }
+
+</style>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageSize)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fingerprint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.File)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fingerprint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => "/upload/" + item.File)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem =>  item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("删除", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+   
+
+</table>
