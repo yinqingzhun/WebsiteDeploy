@@ -1,6 +1,7 @@
-/Model/bin
-/Repository/bin
-/Utils/bin
-/DBContextGenerator/bin
-/Web/bin
-/Business/bin
+bin
+
+packages
+
+upload
+
+obj
