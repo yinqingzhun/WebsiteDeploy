@@ -62,8 +62,9 @@ namespace WebDeploy.Web.Controllers
 
                     CaculateModel(model);
                     string msg = "";
-                    bool success = SaveFile(inputFileFieldName, out msg);
-                    if (!success)
+                    string generatedfileName = SaveFile(inputFileFieldName, out msg);
+                    model.File = generatedfileName;
+                    if (string.IsNullOrWhiteSpace(generatedfileName))
                     {
                         ModelState.AddModelError(inputFileFieldName, msg);
                         return View(model);
@@ -91,32 +92,32 @@ namespace WebDeploy.Web.Controllers
             model.Status = 0;
         }
         [NonAction]
-        private bool SaveFile(string name, out string msg)
+        private string SaveFile(string name, out string error)
         {
-            msg = "";
+            error = "";
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
 
             var file = Request.Files[name];
             if (file == null)
             {
-                msg = "文件不存在或长度为0";
-                return false;
+                error = "文件不存在或长度为0";
+                return string.Empty;
             }
 
             if (Path.GetExtension(file.FileName) != ".zip")
             {
-                msg = "文件必须为zip格式";
-                return false;
+                error = "文件必须为zip格式";
+                return string.Empty;
             }
 
-
-            Request.Files[name].SaveAs(Path.Combine(GetUpdateDir(), name + DateTime.Now.Ticks + ".zip"));
-            return true;
+            string fileName = name + DateTime.Now.Ticks + ".zip";
+            Request.Files[name].SaveAs(Path.Combine(GetUploadDir(), fileName));
+            return fileName;
 
         }
 
-        private string GetUpdateDir()
+        private string GetUploadDir()
         {
             string dir = Server.MapPath("/upload");
             if (!System.IO.Directory.Exists(dir))
@@ -174,6 +175,20 @@ namespace WebDeploy.Web.Controllers
             {
                 return View();
             }
+        }
+
+        public FileResult GetPackageFile(string ticket)
+        {
+            var b = new PackageBusiness();
+            string fileName = b.GetAvailableFileName(ticket);
+            return File(Path.Combine(GetUploadDir(), fileName), System.Net.Mime.MediaTypeNames.Application.Zip);
+        }
+
+        public FileResult GetPackageFile()
+        {
+            var b = new PackageBusiness();
+            string fileName = b.GetAvailableFileName();
+            return File(Path.Combine(GetUploadDir(), fileName), System.Net.Mime.MediaTypeNames.Application.Zip);
         }
 
 

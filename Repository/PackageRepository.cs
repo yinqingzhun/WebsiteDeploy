@@ -27,6 +27,15 @@ namespace WebDeploy.Repository
             return DbContext.Set<Package>().Count(p => p.Enable);
         }
 
+        public string GetAvailableFileName(string fingerprint)
+        {
+            return DbContext.Set<Package>().Where(p => p.Fingerprint == fingerprint && p.Status == 1).Select(p => p.File).SingleOrDefault();
+        }
+
+        public string GetAvailableFileName()
+        {
+            return DbContext.Set<Package>().Where(p =>  p.Status == 1).Select(p => p.File).SingleOrDefault();
+        }
     }
 
 

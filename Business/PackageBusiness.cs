@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using WebDeploy.Model;
@@ -9,7 +10,7 @@ namespace WebDeploy.Business
 {
     public class PackageBusiness
     {
-        public List<Package> GetPackageList(int pageIndex=1,int pageSize=10)
+        public List<Package> GetPackageList(int pageIndex = 1, int pageSize = 10)
         {
             return new PackageRepository().GetPackageList(pageIndex, pageSize);
         }
@@ -39,6 +40,19 @@ namespace WebDeploy.Business
             package.CreateTime = DateTime.Now;
             package.Enable = true;
             return new PackageRepository().Add(package);
-        } 
+        }
+
+        public string GetAvailableFileName(string fingerprint)
+        {
+            if (string.IsNullOrWhiteSpace(fingerprint))
+                return string.Empty;
+
+            return new PackageRepository().GetAvailableFileName(fingerprint);
+        }
+
+        public string GetAvailableFileName()
+        {
+            return new PackageRepository().GetAvailableFileName();
+        }
     }
 }
