@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfigHelper.cs" />
+    <Compile Include="DosCommandHelper.cs" />
     <Compile Include="HashHelper.cs" />
     <Compile Include="HttpWebRequestHelper.cs" />
     <Compile Include="IISHelper.cs" />
