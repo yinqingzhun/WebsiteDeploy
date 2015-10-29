@@ -10,6 +10,7 @@ using System.IO;
 using System.Security.Cryptography;
 using WebDeploy.Model;
 using WebDeploy.Web.Extend;
+using Newtonsoft.Json;
 
 namespace WebDeploy.Web.Controllers
 {
@@ -189,6 +190,22 @@ namespace WebDeploy.Web.Controllers
             var b = new PackageBusiness();
             string fileName = b.GetAvailableFileName();
             return File(Path.Combine(GetUploadDir(), fileName), System.Net.Mime.MediaTypeNames.Application.Zip);
+        }
+
+        public JsonResult GetNewestPackageInfo()
+        {
+
+            return Json(JsonConvert.SerializeObject(new
+            {
+                status = 0,
+                result = new
+                {
+                    package = new
+                    {
+
+                    }
+                }
+            }));
         }
 
 
