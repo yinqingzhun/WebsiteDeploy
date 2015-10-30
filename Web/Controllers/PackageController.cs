@@ -125,32 +125,7 @@ namespace WebDeploy.Web.Controllers
                 System.IO.Directory.CreateDirectory(dir);
             return dir;
         }
-        //
-        // GET: /Package/Edit/5
-
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        ////
-        //// POST: /Package/Edit/5
-
-        //[HttpPost]
-        //public ActionResult Edit(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add update logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
+        
         //
         // GET: /Package/Delete/5
 
@@ -178,35 +153,16 @@ namespace WebDeploy.Web.Controllers
             }
         }
 
-        public FileResult GetPackageFile(string ticket)
+        public FileResult GetPackageFile(string uuid)
         {
             var b = new PackageBusiness();
-            string fileName = b.GetAvailableFileName(ticket);
+            string fileName = b.GetAvailableFileName(uuid);
             return File(Path.Combine(GetUploadDir(), fileName), System.Net.Mime.MediaTypeNames.Application.Zip);
         }
 
-        public FileResult GetPackageFile()
-        {
-            var b = new PackageBusiness();
-            string fileName = b.GetAvailableFileName();
-            return File(Path.Combine(GetUploadDir(), fileName), System.Net.Mime.MediaTypeNames.Application.Zip);
-        }
+       
 
-        public JsonResult GetNewestPackageInfo()
-        {
-
-            return Json(JsonConvert.SerializeObject(new
-            {
-                status = 0,
-                result = new
-                {
-                    package = new
-                    {
-
-                    }
-                }
-            }));
-        }
+       
 
 
     }

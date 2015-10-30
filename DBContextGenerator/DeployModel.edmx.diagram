@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ef32d7e39a57495d89aef1c0b77d0d64" Name="Diagram1" >
-        <EntityTypeShape EntityType="WebDeploy.Model.Deploy" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="WebDeploy.Model.Package" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="WebDeploy.Model.PackageReceiver" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebDeploy.Model.PackageReceivingRecord" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebDeploy.Model.DeployRecord" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

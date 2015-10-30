@@ -56,9 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Deploy.cs">
-      <DependentUpon>DeployModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DeployModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -74,10 +71,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeployModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DeployRecord.cs">
+      <DependentUpon>DeployModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Package.cs">
       <DependentUpon>DeployModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PackageReceiver.cs">
+    <Compile Include="PackageReceivingRecord.cs">
       <DependentUpon>DeployModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

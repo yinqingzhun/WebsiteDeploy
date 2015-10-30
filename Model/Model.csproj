@@ -40,9 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Deploy.cs" />
+    <Compile Include="DeployRecord.cs" />
     <Compile Include="Package.cs" />
-    <Compile Include="PackageReceiver.cs" />
+    <Compile Include="PackageReceivingRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

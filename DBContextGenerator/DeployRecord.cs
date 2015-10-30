@@ -12,14 +12,12 @@ namespace WebDeploy.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class PackageReceiver
+    public partial class DeployRecord
     {
-        public int ReceiverId { get; set; }
-        public string ReceiverHostName { get; set; }
         public int DeployId { get; set; }
-        public System.DateTime ReceiveTime { get; set; }
-        public System.DateTime DoneTime { get; set; }
-        public bool Successful { get; set; }
-        public string ExtraMsg { get; set; }
+        public System.DateTime DeployTime { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public int PackageId { get; set; }
     }
 }
