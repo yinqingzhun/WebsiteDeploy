@@ -21,7 +21,7 @@ namespace WebDeploy.Model
         public System.DateTime CreateTime { get; set; }
         public bool Enable { get; set; }
         public string Fingerprint { get; set; }
-        public byte Status { get; set; }
+        public bool Verified { get; set; }
         public string File { get; set; }
     }
 }

@@ -1,0 +1,88 @@
+﻿@model WebDeploy.Model.DeployRecordModel
+@using WebDeploy.Utils
+
+@{
+    ViewBag.Title = "Web包的发布详情";
+}
+<style type="text/css">
+    .table {
+        border: 1px solid #daf3ff;
+    }
+
+    .table-header {
+        background-color: #EAF8FF;
+    }
+
+    .table-row {
+        display: table-row;
+    }
+
+    .table-td-name {
+        display: table-cell;
+        font-weight:bold;
+        width:80px;
+        padding:3px 5px;
+    }
+
+    .table-td-value {
+        display: table-cell;
+        width:120px;
+        padding:3px 5px;
+    }
+</style>
+<h2>Web包的发布详情</h2>
+<br />
+<div class="table">
+    <div class="table-header">
+        <div class="table-row">
+            <div class="table-td-name">@Html.DisplayNameFor(p => p.UserName)</div>
+            <div class="table-td-value">@Html.DisplayFor(p => p.UserName)</div>
+            <div class="table-td-name">@Html.DisplayNameFor(p => p.DeployTime)</div>
+            <div class="table-td-value">@Model.DeployTime.GetShortName()</div>
+        </div>
+        <div class="row">
+            <div class="table-td-name">@Html.DisplayNameFor(p => p.PackageName)</div>
+            <div class="table-td-value">@Html.DisplayFor(p => p.PackageName)</div>
+            <div class="table-td-name">@Html.DisplayNameFor(p => p.CreateTime)</div>
+            <div class="table-td-value">@Model.CreateTime.GetShortName()</div>
+        </div>
+    </div>
+    <div id="record-container">
+    </div>
+</div>
+
+<script id="record-tmpl" type="text/html">
+    {{if list && list.length > 0}}
+    {{each list as value i}}
+    <div>
+        <div class="table-row">
+            <div class="table-td-name">接收主机</div>
+            <div class="table-td-value">{{value.ReceiverHostName}}</div>
+            <div class="table-td-name">开始时间</div>
+            <div class="table-td-value">{{value.StartTime}}</div>
+            <div class="table-td-name">结束时间</div>
+            <div class="table-td-value">{{value.EndTime}}</div>
+            <div class="table-td-name">状态</div>
+            <div class="table-td-value">{{value.HasDone}}</div>
+            <div class="table-td-name">日志</div>
+            <div class="table-td-value">{{value.Msg}}</div>
+            <div class="table-td-name">错误</div>
+            <div class="table-td-value">{{value.Error}}</div>
+        </div>
+    </div>
+    {{/each}}
+    {{/if}}
+</script>
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/Scripts/art-template.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.get('/deploy/GetPackageReceivingRecordList', location.search.substring(1,location.search.length), function (data) {
+                //加载Dom
+                var sliderDom = template("record-tmpl", { list: data.result.list });
+                $("#record-container").html(sliderDom);
+            }, 'json');
+        });
+    </script>
+}

@@ -11,7 +11,7 @@
     </head>
     <body>
         <header>
-            <div class="content-wrapper">
+            @*<div class="content-wrapper">
                 <div class="float-left">
                     <p class="site-title">@Html.ActionLink("将你的徽标放置在此处", "Index", "Home")</p>
                 </div>
@@ -27,6 +27,19 @@
                         </ul>
                     </nav>
                 </div>
+            </div>*@
+            <div class="nav-parent">
+                <ul id="nav">
+                    <li class="">
+                        <a href="/Package/Index">管理Web包</a>
+                    </li>
+                    <li class="">
+                        <a href="/Deploy/Index">发布Web包</a>
+                    </li>
+                    <li class="">
+                        <a href="/Back/Login/Logoff">退出登录</a>
+                    </li>
+                </ul>
             </div>
         </header>
         <div id="body">

@@ -14,9 +14,9 @@ namespace WebDeploy.Web.Controllers
         {
             PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
             if (b.AddPackageReceivingRecord(uuid, hostName) != null)
-                return Json(JsonConvert.SerializeObject(new { status = 0 }), JsonRequestBehavior.AllowGet);
+                return Json(new { status = 0 });
             else
-                return Json(JsonConvert.SerializeObject(new { status = 101 }), JsonRequestBehavior.AllowGet);
+                return Json(new { status = 101 });
 
         }
         [HttpPost]
@@ -24,9 +24,9 @@ namespace WebDeploy.Web.Controllers
         {
             PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
             if (b.UpdatePackageReceivingRecordMsg(uuid, msg))
-                return Json(JsonConvert.SerializeObject(new { status = 0 }), JsonRequestBehavior.AllowGet);
+                return Json(new { status = 0 });
             else
-                return Json(JsonConvert.SerializeObject(new { status = 101 }), JsonRequestBehavior.AllowGet);
+                return Json(new { status = 101 });
 
         }
         [HttpPost]
@@ -34,9 +34,9 @@ namespace WebDeploy.Web.Controllers
         {
             PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
             if (b.FinishReceivingPackage(uuid, error))
-                return Json(JsonConvert.SerializeObject(new { status = 0 }), JsonRequestBehavior.AllowGet);
+                return Json(new { status = 0 });
             else
-                return Json(JsonConvert.SerializeObject(new { status = 101 }), JsonRequestBehavior.AllowGet);
+                return Json(new { status = 101 });
 
         }
 
@@ -45,7 +45,7 @@ namespace WebDeploy.Web.Controllers
         {
             PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
             bool need = !b.HasFinishReceivingNewestPackage(hostName);
-            return Json(JsonConvert.SerializeObject(new { status = 0, needToDownload = need }), JsonRequestBehavior.AllowGet);
+            return Json(new { status = 0, needToDownload = need }, JsonRequestBehavior.AllowGet);
         }
 
     }

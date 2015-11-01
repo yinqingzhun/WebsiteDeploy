@@ -1,4 +1,4 @@
-﻿@model WebDeploy.Models.PackageViewModel
+﻿@model WebDeploy.Models.PackageModel
 
 @{
     ViewBag.Title = "编辑";
@@ -11,7 +11,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>PackageViewModel</legend>
+        <legend>PackageModel</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.PackageName)

@@ -10,7 +10,7 @@
             <PropertyRef Name="DeployId" />
           </Key>
           <Property Name="DeployId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DeployTime" Type="datetime" Nullable="false" />
+          <Property Name="DeployTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="PackageId" Type="int" Nullable="false" />
@@ -23,10 +23,10 @@
           <Property Name="PackageName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PackageSize" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Enable" Type="bit" Nullable="false" />
           <Property Name="Fingerprint" Type="char" MaxLength="32" Nullable="false" />
-          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Verified" Type="bit" Nullable="false" />
           <Property Name="File" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="PackageReceivingRecord">
@@ -36,7 +36,8 @@
           <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReceiverHostName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DeployId" Type="int" Nullable="false" />
-          <Property Name="ReceiveTime" Type="datetime" Nullable="false" />
+          <Property Name="StartTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="HasDone" Type="bit" Nullable="false" />
           <Property Name="Successful" Type="bit" Nullable="false" />
           <Property Name="Msg" Type="varchar(max)" />
@@ -52,22 +53,32 @@
     <edmx:ConceptualModels>
       <Schema Namespace="WebDeploy.Model" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="DeployEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="DeployRecord" EntityType="WebDeploy.Model.DeployRecord" />
           <EntitySet Name="Package" EntityType="WebDeploy.Model.Package" />
           <EntitySet Name="PackageReceivingRecord" EntityType="WebDeploy.Model.PackageReceivingRecord" />
-          <EntitySet Name="DeployRecord" EntityType="WebDeploy.Model.DeployRecord" />
         </EntityContainer>
+        <EntityType Name="DeployRecord">
+          <Key>
+            <PropertyRef Name="DeployId" />
+          </Key>
+          <Property Name="DeployId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeployTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Package">
           <Key>
             <PropertyRef Name="PackageId" />
           </Key>
-          <Property Name="PackageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PackageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PackageSize" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Enable" Type="Boolean" Nullable="false" />
           <Property Name="Fingerprint" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
-          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Verified" Type="Boolean" Nullable="false" />
           <Property Name="File" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PackageReceivingRecord">
@@ -77,21 +88,12 @@
           <Property Name="RecordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReceiverHostName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeployId" Type="Int32" Nullable="false" />
-          <Property Name="ReceiveTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="HasDone" Type="Boolean" Nullable="false" />
           <Property Name="Successful" Type="Boolean" Nullable="false" />
           <Property Name="Msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Error" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="DeployRecord">
-          <Key>
-            <PropertyRef Name="DeployId" />
-          </Key>
-          <Property Name="DeployId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeployTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PackageId" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -99,11 +101,22 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WebDeployModelStoreContainer" CdmEntityContainer="DeployEntities">
+          <EntitySetMapping Name="DeployRecord">
+            <EntityTypeMapping TypeName="WebDeploy.Model.DeployRecord">
+              <MappingFragment StoreEntitySet="DeployRecord">
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DeployTime" ColumnName="DeployTime" />
+                <ScalarProperty Name="DeployId" ColumnName="DeployId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Package">
             <EntityTypeMapping TypeName="WebDeploy.Model.Package">
               <MappingFragment StoreEntitySet="Package">
                 <ScalarProperty Name="File" ColumnName="File" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Verified" ColumnName="Verified" />
                 <ScalarProperty Name="Fingerprint" ColumnName="Fingerprint" />
                 <ScalarProperty Name="Enable" ColumnName="Enable" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
@@ -121,21 +134,11 @@
                 <ScalarProperty Name="Msg" ColumnName="Msg" />
                 <ScalarProperty Name="Successful" ColumnName="Successful" />
                 <ScalarProperty Name="HasDone" ColumnName="HasDone" />
-                <ScalarProperty Name="ReceiveTime" ColumnName="ReceiveTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="DeployId" ColumnName="DeployId" />
                 <ScalarProperty Name="ReceiverHostName" ColumnName="ReceiverHostName" />
                 <ScalarProperty Name="RecordId" ColumnName="RecordId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DeployRecord">
-            <EntityTypeMapping TypeName="WebDeploy.Model.DeployRecord">
-              <MappingFragment StoreEntitySet="DeployRecord">
-                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="DeployTime" ColumnName="DeployTime" />
-                <ScalarProperty Name="DeployId" ColumnName="DeployId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

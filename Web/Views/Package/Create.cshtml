@@ -1,4 +1,4 @@
-﻿@model WebDeploy.Models.PackageViewModel
+﻿@model WebDeploy.Models.PackageModel
 
 @{
     ViewBag.Title = "新增";
@@ -6,7 +6,7 @@
 
 <h2></h2>
 
-@using (Html.BeginForm("Create","Package",FormMethod.Post ,new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Package", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -51,11 +51,13 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script type="text/javascript">
-    $(function () {
-        
+    <script type="text/javascript">
+        $(function () {
+            $(':file').on('change', function () {
+                $('[name=PackageName]').val(this.files !== undefined ? this.files[0].name : (this.value.substring(this.value.lastIndexOf('\\')+1,this.value.length)));
+            });
 
-    });
+        });
 
-</script>
+    </script>
 }

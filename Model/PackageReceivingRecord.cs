@@ -17,7 +17,8 @@ namespace WebDeploy.Model
         public int RecordId { get; set; }
         public string ReceiverHostName { get; set; }
         public int DeployId { get; set; }
-        public System.DateTime ReceiveTime { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime EndTime { get; set; }
         public bool HasDone { get; set; }
         public bool Successful { get; set; }
         public string Msg { get; set; }

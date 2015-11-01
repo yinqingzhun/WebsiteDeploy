@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebDeploy.Utils</RootNamespace>
-    <AssemblyName>Utils</AssemblyName>
+    <AssemblyName>WebDeploy.Utils</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfigHelper.cs" />
+    <Compile Include="DatetimeHelper.cs" />
     <Compile Include="DosCommandHelper.cs" />
     <Compile Include="HashHelper.cs" />
     <Compile Include="HttpWebRequestHelper.cs" />

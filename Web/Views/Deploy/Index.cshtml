@@ -1,0 +1,73 @@
+﻿@model IEnumerable<WebDeploy.Model.DeployRecordModel>
+@using WebDeploy.Utils
+@{
+    ViewBag.Title = "发布Web包";
+}
+
+<h2>已发布的Web包</h2>
+
+<p>
+    @Html.ActionLink("发布Web包", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DeployId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeployTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PackageSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.File)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeployId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeployTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageName)
+        </td>
+        <td>
+           @Html.Raw(item.PackageSize > 1024 * 1024 ? string.Format("{0:f2}M", item.PackageSize * 1.0 / 1024 / 1024) : "小于1M")
+        </td>
+        <td>
+            @item.CreateTime.GetShortName()
+        </td>
+        <td>
+            @Html.Raw("/upload/" + item.File)
+        </td>
+        <td>
+            @Html.ActionLink("详情", "Detail", new { deployId =item.DeployId})
+        </td>
+    </tr>
+}
+
+</table>

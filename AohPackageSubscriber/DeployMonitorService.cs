@@ -12,6 +12,7 @@ namespace AohPackageSubscriber
 {
     public class DeployMonitorService : IDaemonService
     {
+        private bool running = true;
         private const int interval = 3000;
         private string deployServiceHost = string.Empty;
         private string tempDir = string.Empty;
@@ -23,12 +24,13 @@ namespace AohPackageSubscriber
         public void Start()
         {
             //初始化参数
-            deployServiceHost = string.Format("http://{0}/", AppConfigHelper.GetAppSetting("PackageDeployServer").ToString());
+            deployServiceHost = string.Format("http://{0}", AppConfigHelper.GetAppSetting("PackageDeployServer").ToString());
             tempDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
             webSitePath = AppConfigHelper.GetAppSetting("WebSite.Path").ToString();
             webSiteName = AppConfigHelper.GetAppSetting("WebSite.Name").ToString();
             WebSiteDirectoryBackup = AppConfigHelper.GetAppSetting("WebSite.BackupLocation").ToString();
             webSiteHealthMonitorURL = AppConfigHelper.GetAppSetting("WebSite.HealthMonitorURL").ToString();
+            running = true;
 
             Thread t = new Thread(MonitorNewDeploy);
             t.Start();
@@ -36,20 +38,20 @@ namespace AohPackageSubscriber
 
         public void Stop()
         {
-
+            running = false;
         }
 
 
 
         private void MonitorNewDeploy()
         {
-            while (true)
+            while (running)
             {
+                string uuid = string.Empty;
                 try
                 {
-
-
-                    Directory.Delete(tempDir, true);
+                    if (Directory.Exists(tempDir))
+                        Directory.Delete(tempDir, true);
                     Directory.CreateDirectory(tempDir);
 
                     //检测站点文件是否需要更新
@@ -60,7 +62,7 @@ namespace AohPackageSubscriber
                     }
 
                     //获取包文件uuid
-                    string uuid = GetNewestPackageUUId();
+                    uuid = GetNewestPackageUUId();
                     if (string.IsNullOrWhiteSpace(uuid))
                     {
                         Thread.Sleep(5000);
@@ -95,17 +97,18 @@ namespace AohPackageSubscriber
                         //回滚成功时，覆盖文件
                         XCopy.Copy(backupPath, webSitePath);
                         LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 回滚站点完毕。");
-                        LogFinishingUpdating(uuid, " 更新站点失败，回滚站点完毕。");
+                        LogFinishingUpdating(uuid, "更新站点后无法正常访问站点");
 
                     }
                     else
                     {
                         //通知服务端更新成功
-                        LogFinishingUpdating(uuid, "");
+                        LogFinishingUpdating(uuid);
                     }
                 }
                 catch (Exception ex)
                 {
+                    LogFinishingUpdating(uuid, ex.Message);
                     LogHelper.Error("包文件更新失败", ex);
                 }
 
@@ -123,7 +126,7 @@ namespace AohPackageSubscriber
             HttpWebRequestHelper.Post(deployServiceHost + "/PackageReceive/UpdateReceiveInfo",
                 new Dictionary<string, object>() { { "uuid", uuid }, { "msg", msg } });
         }
-        private void LogFinishingUpdating(string uuid, string error)
+        private void LogFinishingUpdating(string uuid, string error = "")
         {
             HttpWebRequestHelper.Post(deployServiceHost + "/PackageReceive/FinishReceiving",
                 new Dictionary<string, object>() { { "uuid", uuid }, { "error", error } });
@@ -131,7 +134,7 @@ namespace AohPackageSubscriber
 
         private string GetNewestPackageUUId()
         {
-            string s = HttpWebRequestHelper.Get(deployServiceHost + "/Deploy/GetNewDeployedPackageUUId", null);
+            string s = HttpWebRequestHelper.Get(deployServiceHost + "/Deploy/GetNewDeployedPackageUUId");
             if (string.IsNullOrWhiteSpace(s))
                 return string.Empty;
             JObject o = JsonConvert.DeserializeObject<JObject>(s);
@@ -143,7 +146,7 @@ namespace AohPackageSubscriber
         }
         private bool NeedToDownloadDeployedPackage()
         {
-            string s = HttpWebRequestHelper.Post(deployServiceHost + "/PackageReceive/NeedToDownloadDeployedPackage", new Dictionary<string, object>() { { "hostName", Dns.GetHostName() } });
+            string s = HttpWebRequestHelper.Get(deployServiceHost + "/PackageReceive/NeedToDownloadDeployedPackage?hostName=" + Dns.GetHostName());
             if (string.IsNullOrWhiteSpace(s))
                 return false;
             JObject o = JsonConvert.DeserializeObject<JObject>(s);

@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using System.Globalization;
-using System.Web.Mvc;
-using System.Web.Security;
 
 namespace WebDeploy.Models
 {
-    public class PackageViewModel
+    public class PackageModel
     {
         [Display(Name = "包编号")]
         public int PackageId { get; set; }
@@ -23,8 +19,8 @@ namespace WebDeploy.Models
         public bool Enable { get; set; }
         [Display(Name = "包指纹")]
         public string Fingerprint { get; set; }
-        [Display(Name = "包状态")]
-        public byte Status { get; set; }
+        [Display(Name = "已验证")]
+        public bool Verified { get; set; }
         [Required]
         [Display(Name="包文件")]
         public string File { get; set; }

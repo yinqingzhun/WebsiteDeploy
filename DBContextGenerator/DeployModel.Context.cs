@@ -26,8 +26,8 @@ namespace DBContextGenerator
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<DeployRecord> DeployRecord { get; set; }
         public virtual DbSet<Package> Package { get; set; }
         public virtual DbSet<PackageReceivingRecord> PackageReceivingRecord { get; set; }
-        public virtual DbSet<DeployRecord> DeployRecord { get; set; }
     }
 }

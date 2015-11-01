@@ -27,8 +27,8 @@ namespace WebDeploy.Web.Controllers
             var list = b.GetPackageList();
             var count = b.GetPackageCount();
 
-            List<PackageViewModel> results = new List<PackageViewModel>();
-            list.ForEach(p => results.Add(ObjectCopier.Copy<PackageViewModel>(p)));
+            List<PackageModel> results = new List<PackageModel>();
+            list.ForEach(p => results.Add(ObjectCopier.Copy<PackageModel>(p)));
 
             PagerHtmlHelper.Generate(ViewData, pageIndex, pageSize, count);
             return View(results);
@@ -54,7 +54,7 @@ namespace WebDeploy.Web.Controllers
         // POST: /Package/Create
 
         [HttpPost]
-        public ActionResult Create(PackageViewModel model)
+        public ActionResult Create(PackageModel model)
         {
             try
             {
@@ -83,14 +83,14 @@ namespace WebDeploy.Web.Controllers
                 return View();
             }
         }
-        private void CaculateModel(PackageViewModel model)
+        private void CaculateModel(PackageModel model)
         {
             model.CreateTime = DateTime.Now;
             model.Enable = true;
             model.Fingerprint = HashHelper.ComputeHashString(HashHelper.HashName.MD5, Request.Files[inputFileFieldName].InputStream);
             model.PackageName = Request.Files[inputFileFieldName].FileName;
             model.PackageSize = Request.Files[inputFileFieldName].ContentLength;
-            model.Status = 0;
+            model.Verified = false;
         }
         [NonAction]
         private string SaveFile(string name, out string error)
@@ -125,7 +125,7 @@ namespace WebDeploy.Web.Controllers
                 System.IO.Directory.CreateDirectory(dir);
             return dir;
         }
-        
+
         //
         // GET: /Package/Delete/5
 
@@ -138,31 +138,35 @@ namespace WebDeploy.Web.Controllers
         // POST: /Package/Delete/5
 
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection c)
         {
-            try
-            {
-                PackageBusiness b = new PackageBusiness();
-                b.DeletePackage(id);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            PackageBusiness b = new PackageBusiness();
+            b.DeletePackage(id);
+
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult SetVerified(int packageId)
+        {
+            PackageBusiness b = new PackageBusiness();
+            b.SetPackageVerified(packageId);
+
+            return RedirectToAction("Index");
         }
 
         public FileResult GetPackageFile(string uuid)
         {
             var b = new PackageBusiness();
             string fileName = b.GetAvailableFileName(uuid);
-            return File(Path.Combine(GetUploadDir(), fileName), System.Net.Mime.MediaTypeNames.Application.Zip);
+            return File(Path.Combine(GetUploadDir(), fileName),
+                System.Net.Mime.MediaTypeNames.Application.Zip, fileName);
         }
 
-       
 
-       
+
+
 
 
     }

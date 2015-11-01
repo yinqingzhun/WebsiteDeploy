@@ -20,6 +20,16 @@ namespace WebDeploy.Business
             return new PackageRepository().GetPackageCount();
         }
 
+        public List<Package> GetVerifiedPackageList(int pageIndex = 1, int pageSize = 10)
+        {
+            return new PackageRepository().GetVerifiedPackageList(pageIndex, pageSize);
+        }
+
+        public int GetVerifiedPackageCount()
+        {
+            return new PackageRepository().GetVerifiedPackageCount();
+        }
+
         public Package GetPackage(int packageId)
         {
             return new PackageRepository().FindByPrimaryKey<Package>(packageId);
@@ -53,6 +63,11 @@ namespace WebDeploy.Business
         public string GetAvailableFileName()
         {
             return new PackageRepository().GetAvailableFileName();
+        }
+
+        public bool SetPackageVerified(int packageId)
+        {
+            return new PackageRepository().SetPackageVerified(packageId);
         }
     }
 }

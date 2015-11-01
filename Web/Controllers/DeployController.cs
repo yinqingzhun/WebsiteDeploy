@@ -17,10 +17,46 @@ namespace WebDeploy.Web.Controllers
 
     public class DeployController : Controller
     {
+        public ActionResult Index()
+        {
+            DeployRecordBusiness b = new DeployRecordBusiness();
+            var list = b.GetDeployedRecordList();
+            return View(list);
+        }
+
+        public ActionResult Create()
+        {
+            PackageBusiness b = new PackageBusiness();
+            var list = b.GetVerifiedPackageList();
+            var count = b.GetVerifiedPackageCount();
+
+            List<PackageModel> results = new List<PackageModel>();
+            list.ForEach(p => results.Add(ObjectCopier.Copy<PackageModel>(p)));
+
+            return View(results);
+        }
+        [HttpPost]
+        public ActionResult Create(int packageId)
+        {
+            DeployRecordBusiness b = new DeployRecordBusiness();
+            if (b.AddDeployRecord(packageId) != null)
+                return RedirectToAction("Index");
+            return View();
+        }
+
+        public ActionResult Detail(int deployId)
+        {
+            DeployRecordBusiness b = new DeployRecordBusiness();
+            var o = b.GetDeployRecord(deployId);
+            ViewBag.DeployId = deployId;
+            return View(o);
+        }
+
+
 
         public JsonResult GetNewDeployedPackageUUId()
         {
-            DeployBusiness b = new DeployBusiness();
+            DeployRecordBusiness b = new DeployRecordBusiness();
             Package p = b.GetNewDeployedPackage();
             return Json(new
             {
@@ -29,7 +65,14 @@ namespace WebDeploy.Web.Controllers
                 {
                     uuid = p == null ? "" : p.Fingerprint
                 }
-            });
+            },JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPackageReceivingRecordList(int deployId)
+        {
+            PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
+            var list = b.GetPackageReceivingRecordList(deployId);
+            return Json(new { status = 0, result = new { list = list } }, JsonRequestBehavior.AllowGet);
         }
 
 

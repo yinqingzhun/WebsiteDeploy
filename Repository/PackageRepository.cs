@@ -19,7 +19,7 @@ namespace WebDeploy.Repository
 
         public List<Package> GetPackageList(int pageIndex = 1, int pageSize = 10)
         {
-            return DbContext.Set<Package>().Where(p => p.Enable).OrderByDescending(p=>p.CreateTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return DbContext.Set<Package>().Where(p => p.Enable).OrderByDescending(p => p.CreateTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public int GetPackageCount()
@@ -27,14 +27,31 @@ namespace WebDeploy.Repository
             return DbContext.Set<Package>().Count(p => p.Enable);
         }
 
+        public List<Package> GetVerifiedPackageList(int pageIndex = 1, int pageSize = 10)
+        {
+            return DbContext.Set<Package>().Where(p => p.Enable & p.Verified).OrderByDescending(p => p.CreateTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int GetVerifiedPackageCount()
+        {
+            return DbContext.Set<Package>().Count(p => p.Enable & p.Verified);
+        }
+
         public string GetAvailableFileName(string fingerprint)
         {
-            return DbContext.Set<Package>().Where(p => p.Fingerprint == fingerprint && p.Status == 1).Select(p => p.File).SingleOrDefault();
+            return DbContext.Set<Package>().Where(p => p.Fingerprint == fingerprint && p.Verified).Select(p => p.File).SingleOrDefault();
         }
 
         public string GetAvailableFileName()
         {
-            return DbContext.Set<Package>().Where(p =>  p.Status == 1).Select(p => p.File).SingleOrDefault();
+            return DbContext.Set<Package>().Where(p => p.Verified).Select(p => p.File).SingleOrDefault();
+        }
+
+        public bool SetPackageVerified(int packageId)
+        {
+            var o = DbContext.Set<Package>().Find(packageId);
+            o.Verified = true;
+            return DbContext.SaveChanges() > 0;
         }
     }
 

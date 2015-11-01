@@ -11,17 +11,23 @@ namespace WebDeploy.Model
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class PackageReceivingRecord
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class PackageReceivingRecordModel
     {
-        public int RecordId { get; set; }
+        [Display(Name = "接收主机")]
         public string ReceiverHostName { get; set; }
-        public int DeployId { get; set; }
+        [Display(Name = "开始时间")]
         public System.DateTime StartTime { get; set; }
+        [Display(Name = "结束时间")]
         public System.DateTime EndTime { get; set; }
+        [Display(Name = "是否完成")]
         public bool HasDone { get; set; }
+        [Display(Name = "是否成功")]
         public bool Successful { get; set; }
+        [Display(Name = "日志")]
         public string Msg { get; set; }
+        [Display(Name = "错误")]
         public string Error { get; set; }
     }
 }

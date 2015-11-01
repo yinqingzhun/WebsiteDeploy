@@ -5,6 +5,7 @@ using System.Text;
 using WebDeploy.Model;
 using System.Data.SqlClient;
 using System.Data;
+using WebDeploy.Models;
 
 namespace WebDeploy.Repository
 {
@@ -20,30 +21,7 @@ namespace WebDeploy.Repository
             return i;
         }
 
-        public bool UpdatePackageReceivingRecordMsg(string fingerprint, string msg)
-        {
-            string sql = "update deployrecord set msg=msg+@msg from package p join deployrecord r on p.packageId=r.packageId where p.fingerprint=@fingerprint";
-            return base.ExecuteNonQuery(sql,
-                new SqlParameter("@fingerprint", SqlDbType.Char, 32) { Value = fingerprint },
-                new SqlParameter("@msg", SqlDbType.VarChar) { Value = msg }) > 0;
-        }
-        public bool FinishReceivingPackage(string fingerprint, string error)
-        {
-            if (string.IsNullOrWhiteSpace(error))
-            {
-                string sql = "update deployrecord set hasDone=true,Successful=true from package p join deployrecord r on p.packageId=r.packageId where p.fingerprint=@fingerprint";
-                return base.ExecuteNonQuery(sql,
-                    new SqlParameter("@fingerprint", SqlDbType.Char, 32) { Value = fingerprint },
-                    new SqlParameter("@error", SqlDbType.VarChar) { Value = error }) > 0;
-            }
-            else
-            {
-                string sql = "update deployrecord set error=@error,hasDone=true,Successful=false from package p join deployrecord r on p.packageId=r.packageId where p.fingerprint=@fingerprint";
-                return base.ExecuteNonQuery(sql,
-                    new SqlParameter("@fingerprint", SqlDbType.Char, 32) { Value = fingerprint },
-                    new SqlParameter("@error", SqlDbType.VarChar) { Value = error }) > 0;
-            }
-        }
+       
 
         public Package GetNewDeployedPackage()
         {
@@ -53,7 +31,45 @@ namespace WebDeploy.Repository
             return DbContext.Set<Package>().Find(deploy.PackageId);
         }
 
-       
+        public List<DeployRecordModel> GetDeployedRecordList()
+        {
+            return (from d in DbContext.Set<DeployRecord>()
+                    join p in DbContext.Set<Package>()
+                    on d.PackageId equals p.PackageId
+                    orderby d.DeployTime descending
+                    select new DeployRecordModel()
+                    {
+                        DeployId = d.DeployId,
+                        UserName = d.UserName,
+                        DeployTime = d.DeployTime,
+                        PackageId = d.PackageId,
+                        CreateTime = p.CreateTime,
+                        PackageName = p.PackageName,
+                        PackageSize = p.PackageSize,
+                        File = p.File
+                    }).ToList();
+
+        }
+
+        public DeployRecordModel GetDeployedRecord(int deployId)
+        {
+            return (from d in DbContext.Set<DeployRecord>()
+                    join p in DbContext.Set<Package>()
+                    on d.PackageId equals p.PackageId
+                    where d.DeployId == deployId
+                    select new DeployRecordModel()
+                    {
+                        DeployId = d.DeployId,
+                        UserName = d.UserName,
+                        DeployTime = d.DeployTime,
+                        PackageId = d.PackageId,
+                        CreateTime = p.CreateTime,
+                        PackageName = p.PackageName,
+                        PackageSize = p.PackageSize,
+                        File = p.File
+                    }).FirstOrDefault();
+
+        }
 
     }
 

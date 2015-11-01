@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebDeploy.Model</RootNamespace>
-    <AssemblyName>Model</AssemblyName>
+    <AssemblyName>WebDeploy.Model</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,6 +44,9 @@
     <Compile Include="Package.cs" />
     <Compile Include="PackageReceivingRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\DeployRecordModel.cs" />
+    <Compile Include="View\PackageModel.cs" />
+    <Compile Include="View\PackageReceivingRecordModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
