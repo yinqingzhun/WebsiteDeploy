@@ -11,7 +11,7 @@ namespace WebDeploy.Business
 {
     public class PackageReceivingRecordBusiness
     {
-         
+
 
         public PackageReceivingRecord AddPackageReceivingRecord(string uuid, string hostName)
         {
@@ -23,6 +23,7 @@ namespace WebDeploy.Business
                 HasDone = false,
                 ReceiverHostName = hostName,
                 StartTime = DateTime.Now,
+                EndTime = DateTime.Now,
                 Successful = false,
                 DeployId = deployId
             };
@@ -47,7 +48,7 @@ namespace WebDeploy.Business
             return deployRecordRep.HasFinishReceivingNewestPackage(hostName);
         }
 
-        public List<PackageReceivingRecord> GetPackageReceivingRecordList(int deployId)
+        public List<PackageReceivingRecordModel> GetPackageReceivingRecordList(int deployId)
         {
             PackageReceivingRecordRepository deployRecordRep = new PackageReceivingRecordRepository();
             return deployRecordRep.GetPackageReceivingRecordList(deployId);

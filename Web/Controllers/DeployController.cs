@@ -27,8 +27,8 @@ namespace WebDeploy.Web.Controllers
         public ActionResult Create()
         {
             PackageBusiness b = new PackageBusiness();
-            var list = b.GetVerifiedPackageList();
-            var count = b.GetVerifiedPackageCount();
+            var list = b.GetPackageList();
+            var count = b.GetPackageCount();
 
             List<PackageModel> results = new List<PackageModel>();
             list.ForEach(p => results.Add(ObjectCopier.Copy<PackageModel>(p)));
@@ -52,12 +52,13 @@ namespace WebDeploy.Web.Controllers
             return View(o);
         }
 
+       
 
 
-        public JsonResult GetNewDeployedPackageUUId()
+        public JsonResult GetNewDeployedPackageUUId(bool verified)
         {
             DeployRecordBusiness b = new DeployRecordBusiness();
-            Package p = b.GetNewDeployedPackage();
+            Package p = b.GetNewDeployedPackage(verified);
             return Json(new
             {
                 status = 0,

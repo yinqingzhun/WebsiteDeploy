@@ -175,8 +175,6 @@ namespace WebDeploy.Utils
             TimeSpan ts = DateTime.Now - datetime;
             if (ts.TotalMinutes < 1)
                 return "刚刚";
-            else if (ts.TotalHours < 1)
-                return string.Format("{0}分钟之前", (int)ts.TotalMinutes);
 
             if (today == datetime.Date)
             {

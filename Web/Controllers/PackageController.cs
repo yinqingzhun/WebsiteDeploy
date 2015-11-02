@@ -159,7 +159,7 @@ namespace WebDeploy.Web.Controllers
         public FileResult GetPackageFile(string uuid)
         {
             var b = new PackageBusiness();
-            string fileName = b.GetAvailableFileName(uuid);
+            string fileName = b.GetFileName(uuid);
             return File(Path.Combine(GetUploadDir(), fileName),
                 System.Net.Mime.MediaTypeNames.Application.Zip, fileName);
         }

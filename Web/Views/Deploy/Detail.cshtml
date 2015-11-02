@@ -11,23 +11,34 @@
 
     .table-header {
         background-color: #EAF8FF;
+        padding: 8px;
     }
 
     .table-row {
-        display: table-row;
     }
 
     .table-td-name {
         display: table-cell;
-        font-weight:bold;
-        width:80px;
-        padding:3px 5px;
+        font-weight: bold;
+        width: 80px;
+        padding: 3px 5px;
     }
 
     .table-td-value {
         display: table-cell;
-        width:120px;
-        padding:3px 5px;
+        width: 120px;
+        padding: 3px 5px;
+    }
+
+    .content-container {
+        padding: 8px;
+        background: white;
+        border-radius:5px;
+        border:1px solid orange;
+        margin-top:2px;
+    }
+    .text{
+        padding-left:25px;
     }
 </style>
 <h2>Web包的发布详情</h2>
@@ -54,20 +65,24 @@
 <script id="record-tmpl" type="text/html">
     {{if list && list.length > 0}}
     {{each list as value i}}
-    <div>
+    <div class="content-container">
         <div class="table-row">
             <div class="table-td-name">接收主机</div>
             <div class="table-td-value">{{value.ReceiverHostName}}</div>
-            <div class="table-td-name">开始时间</div>
-            <div class="table-td-value">{{value.StartTime}}</div>
-            <div class="table-td-name">结束时间</div>
-            <div class="table-td-value">{{value.EndTime}}</div>
+            <div class="table-td-name">时间</div>
+            <div class="table-td-value">{{value.StartTime}}~{{value.EndTime}}</div>
             <div class="table-td-name">状态</div>
-            <div class="table-td-value">{{value.HasDone}}</div>
+            <div class="table-td-value">{{value.Status}}</div>
+        </div>
+        <div class="table-row">
             <div class="table-td-name">日志</div>
-            <div class="table-td-value">{{value.Msg}}</div>
+            {{each value.MsgList as m }}
+            <div class="text">{{m}}</div>
+            {{/each}}
+        </div>
+        <div class="table-row">
             <div class="table-td-name">错误</div>
-            <div class="table-td-value">{{value.Error}}</div>
+            <div class="text">{{value.Error}}</div>
         </div>
     </div>
     {{/each}}
@@ -78,11 +93,19 @@
     <script type="text/javascript" src="~/Scripts/art-template.js"></script>
     <script type="text/javascript">
         $(function () {
-            $.get('/deploy/GetPackageReceivingRecordList', location.search.substring(1,location.search.length), function (data) {
-                //加载Dom
-                var sliderDom = template("record-tmpl", { list: data.result.list });
-                $("#record-container").html(sliderDom);
-            }, 'json');
+            function loadPackageReceivingRecordList() {
+                $.get('/deploy/GetPackageReceivingRecordList', location.search.substring(1, location.search.length), function (data) {
+                    for (var i = 0; i < data.result.list.length; i++) {
+                        data.result.list[i].MsgList = data.result.list[i].Msg.split('。');
+                    }
+                    //加载Dom
+                    var sliderDom = template("record-tmpl", { list: data.result.list });
+                    $("#record-container").html(sliderDom);
+                }, 'json');
+            }
+            loadPackageReceivingRecordList();
+            window.setInterval(loadPackageReceivingRecordList, 5000);
+
         });
     </script>
 }

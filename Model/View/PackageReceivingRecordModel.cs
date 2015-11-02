@@ -18,9 +18,9 @@ namespace WebDeploy.Model
         [Display(Name = "接收主机")]
         public string ReceiverHostName { get; set; }
         [Display(Name = "开始时间")]
-        public System.DateTime StartTime { get; set; }
+        public string StartTime { get; set; }
         [Display(Name = "结束时间")]
-        public System.DateTime EndTime { get; set; }
+        public string EndTime { get; set; }
         [Display(Name = "是否完成")]
         public bool HasDone { get; set; }
         [Display(Name = "是否成功")]
@@ -29,5 +29,6 @@ namespace WebDeploy.Model
         public string Msg { get; set; }
         [Display(Name = "错误")]
         public string Error { get; set; }
+        public string Status { get; set; }
     }
 }

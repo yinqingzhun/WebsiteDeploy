@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace WebDeploy.Utils
 {
-    public static  class IISHelper
+    public static class IISHelper
     {
 
         public static void SetWebSitePath(string websiteName, string websitePath)
@@ -17,6 +17,20 @@ namespace WebDeploy.Utils
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("set app \"{0}/\" -[path='/'].physicalPath:\"{1}\"", websiteName, websitePath);
             DosCommandHelper.Execute(cmdName, arguments);
+        }
+
+        public static void CreateWebsite(string websiteName, string websitePath, string domainName, int port)
+        {
+            const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
+            string arguments = string.Format("add add site /name:\"{0}\" /physicalPath:\"{1}\" /bindings:http/{2}:{3}: ", websiteName, websitePath, domainName, port);
+            DosCommandHelper.Execute(cmdName, arguments);
+        }
+
+        public static bool ExistWebsite(string websiteName)
+        {
+            const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
+            string arguments = string.Format("appcmd list site \"{0}\"", websiteName);
+            return !string.IsNullOrWhiteSpace(DosCommandHelper.Execute(cmdName, arguments));
         }
     }
 

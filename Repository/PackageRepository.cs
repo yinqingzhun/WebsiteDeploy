@@ -37,15 +37,16 @@ namespace WebDeploy.Repository
             return DbContext.Set<Package>().Count(p => p.Enable & p.Verified);
         }
 
-        public string GetAvailableFileName(string fingerprint)
+        public string GetFileName(string fingerprint)
         {
-            return DbContext.Set<Package>().Where(p => p.Fingerprint == fingerprint && p.Verified).Select(p => p.File).SingleOrDefault();
+            return DbContext.Set<Package>().Where(p => p.Fingerprint == fingerprint).Select(p => p.File).SingleOrDefault();
         }
 
-        public string GetAvailableFileName()
+        public Package GetPackage(string fingerprint)
         {
-            return DbContext.Set<Package>().Where(p => p.Verified).Select(p => p.File).SingleOrDefault();
+            return DbContext.Set<Package>().Where(p => p.Fingerprint == fingerprint).SingleOrDefault();
         }
+      
 
         public bool SetPackageVerified(int packageId)
         {

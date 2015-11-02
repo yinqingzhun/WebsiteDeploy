@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebDeploy.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DeployRecord">
+    <Key>
+      <PropertyRef Name="DeployId" />
+    </Key>
+    <Property Name="DeployId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeployTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="PackageId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Package">
+    <Key>
+      <PropertyRef Name="PackageId" />
+    </Key>
+    <Property Name="PackageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PackageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PackageSize" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreateTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Enable" Type="bit" Nullable="false" />
+    <Property Name="Fingerprint" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="Verified" Type="bit" Nullable="false" />
+    <Property Name="File" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PackageReceivingRecord">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReceiverHostName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DeployId" Type="int" Nullable="false" />
+    <Property Name="StartTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="HasDone" Type="bit" Nullable="false" />
+    <Property Name="Successful" Type="bit" Nullable="false" />
+    <Property Name="Msg" Type="varchar(max)" />
+    <Property Name="Error" Type="varchar(max)" />
+  </EntityType>
+  <EntityContainer Name="WebDeployModelStoreContainer">
+    <EntitySet Name="DeployRecord" EntityType="Self.DeployRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PackageReceivingRecord" EntityType="Self.PackageReceivingRecord" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

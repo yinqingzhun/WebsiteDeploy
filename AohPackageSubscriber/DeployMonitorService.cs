@@ -21,6 +21,7 @@ namespace AohPackageSubscriber
         private string webSiteName = string.Empty;
         private string WebSiteDirectoryBackup = string.Empty;
         private string webSiteHealthMonitorURL = string.Empty;
+        private bool requireVerifiedForNewPackage = true;
         public void Start()
         {
             //初始化参数
@@ -28,8 +29,9 @@ namespace AohPackageSubscriber
             tempDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
             webSitePath = AppConfigHelper.GetAppSetting("WebSite.Path").ToString();
             webSiteName = AppConfigHelper.GetAppSetting("WebSite.Name").ToString();
-            WebSiteDirectoryBackup = AppConfigHelper.GetAppSetting("WebSite.BackupLocation").ToString();
+            WebSiteDirectoryBackup = AppConfigHelper.GetAppSetting("WebSite.Directory.Backup").ToString();
             webSiteHealthMonitorURL = AppConfigHelper.GetAppSetting("WebSite.HealthMonitorURL").ToString();
+            requireVerifiedForNewPackage = AppConfigHelper.GetAppSetting<bool>("NewPackage.RequireVerified", true);
             running = true;
 
             Thread t = new Thread(MonitorNewDeploy);
@@ -50,9 +52,7 @@ namespace AohPackageSubscriber
                 string uuid = string.Empty;
                 try
                 {
-                    if (Directory.Exists(tempDir))
-                        Directory.Delete(tempDir, true);
-                    Directory.CreateDirectory(tempDir);
+
 
                     //检测站点文件是否需要更新
                     if (!NeedToDownloadDeployedPackage())
@@ -69,7 +69,17 @@ namespace AohPackageSubscriber
                         continue;
                     }
                     LogBeginingToUpdate(uuid);
+                    //检查站点是否存在
+                    if (!IISHelper.ExistWebsite(webSiteName))
+                    {
+                        Uri u = new Uri(webSiteHealthMonitorURL);
+                        IISHelper.CreateWebsite(webSiteName, webSitePath, u.DnsSafeHost, u.Port);
+                    }
 
+                    //清理临时目录
+                    if (Directory.Exists(tempDir))
+                        DeleteDirectory(tempDir);
+                    Directory.CreateDirectory(tempDir);
                     //下载最新可用包文件
                     if (!DownloadDeployPackage(uuid))
                     {
@@ -82,21 +92,26 @@ namespace AohPackageSubscriber
                     ZipHelper.UnZipFile(tempFilePath, tempDir);
                     LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 解压包文件完毕。");
                     //备份当前站点
-                    XCopy.Copy(webSitePath, Path.Combine(WebSiteDirectoryBackup, DateTime.Now.ToString("yyyy-MM-dd_hhmmss.fff")));
-                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 备份站点文件完毕。");
-                    //覆盖站点的包文件 TODO 提取站点文件
-                    XCopy.Copy(tempDir, webSitePath);
-                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 覆盖站点文件完毕。");
+                    string backup_exclude = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "backup_exclude.txt");
+                    XCopy.Copy(webSitePath, Path.Combine(WebSiteDirectoryBackup, DateTime.Now.ToString("yyyy-MM-dd_hhmmss.fff")), backup_exclude);
+                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 备份站点物理目录完毕。");
+                    //覆盖站点的包文件 
+                    string source_exclude = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "source_exclude.txt");
+                    XCopy.Copy(GetLookLikeWebDeployDirectory(tempDir), webSitePath);
+                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 覆盖站点物理目录完毕。");
+                    IISHelper.SetWebSitePath(webSiteName, webSitePath);
+                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 设置站点的物理路径为默认路径。");
                     //失败时，回滚到备份文件
                     if (!IsWebsiteHealthy())
                     {
                         LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 检测到站点无法正常访问。");
-                        //获取备份文件路径
+                        //站点切换到备份文件
                         string backupPath = GetNewBackupPackagePath();
                         IISHelper.SetWebSitePath(webSiteName, backupPath);
-                        //回滚成功时，覆盖文件
+                        //回滚成功时，覆盖站点默认位置的文件，并将站点路径切换到默认位置
                         XCopy.Copy(backupPath, webSitePath);
-                        LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 回滚站点完毕。");
+                        IISHelper.SetWebSitePath(webSiteName, webSitePath);
+                        LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + string.Format(" 回滚站点完毕，站点{0}正常访问。", IsWebsiteHealthy() ? "可以" : "不能"));
                         LogFinishingUpdating(uuid, "更新站点后无法正常访问站点");
 
                     }
@@ -134,7 +149,7 @@ namespace AohPackageSubscriber
 
         private string GetNewestPackageUUId()
         {
-            string s = HttpWebRequestHelper.Get(deployServiceHost + "/Deploy/GetNewDeployedPackageUUId");
+            string s = HttpWebRequestHelper.Get(deployServiceHost + "/Deploy/GetNewDeployedPackageUUId?verified=" + requireVerifiedForNewPackage);
             if (string.IsNullOrWhiteSpace(s))
                 return string.Empty;
             JObject o = JsonConvert.DeserializeObject<JObject>(s);
@@ -198,5 +213,40 @@ namespace AohPackageSubscriber
             string[] dirList = Directory.GetDirectories(WebSiteDirectoryBackup);
             return dirList.ToList().Max();
         }
+        /// <summary>
+        /// 获取WebDeploy实际目录
+        /// </summary>
+        /// <param name="parentDir"></param>
+        /// <returns></returns>
+        private string GetLookLikeWebDeployDirectory(string parentDir)
+        {
+            string[] dirList = Directory.GetDirectories(parentDir);
+            string[] fileList = Directory.GetFiles(parentDir);
+            bool isOk = dirList.ToList().Any(p => "bin".Equals(Path.GetFileName(p), StringComparison.OrdinalIgnoreCase)) &&
+                fileList.ToList().Any(p => "web.config".Equals(Path.GetFileName(p), StringComparison.OrdinalIgnoreCase));
+
+            if (!isOk)
+            {
+                foreach (string dir in dirList)
+                {
+                    string target = string.Empty;
+                    if (!string.IsNullOrWhiteSpace((target = GetLookLikeWebDeployDirectory(dir))))
+                        return target;
+                }
+            }
+
+            return isOk ? parentDir : string.Empty;
+
+        }
+
+        private void DeleteDirectory(string parentDir)
+        {
+            string[] dirList = Directory.GetDirectories(parentDir);
+            string[] fileList = Directory.GetFiles(parentDir);
+            Array.ForEach(fileList, p => File.Delete(p));
+            Array.ForEach(dirList, p => DeleteDirectory(p));
+            Directory.Delete(parentDir, true);
+        }
+
     }
 }

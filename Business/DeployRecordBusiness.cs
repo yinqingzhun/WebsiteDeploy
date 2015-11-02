@@ -11,9 +11,9 @@ namespace WebDeploy.Business
 {
     public class DeployRecordBusiness
     {
-        public Package GetNewDeployedPackage()
+        public Package GetNewDeployedPackage(bool verified)
         {
-            return new DeployRecordRepository().GetNewDeployedPackage();
+            return new DeployRecordRepository().GetNewDeployedPackage( verified);
         }
 
         public List<DeployRecordModel> GetDeployedRecordList()

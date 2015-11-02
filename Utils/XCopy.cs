@@ -13,7 +13,7 @@ namespace WebDeploy.Utils
         {
             string arguments = string.Format(" \"{0}\" \"{1}\" /i/e/v/Y", solutionDirectory, targetDirectory);
             if (File.Exists(exclude))
-                arguments += string.Format(" /EXCLUDE:\"{0}\"", exclude);
+                arguments += string.Format(" /EXCLUDE:{0}", exclude);
             DosCommandHelper.Execute("xcopy", arguments);
         }
     }

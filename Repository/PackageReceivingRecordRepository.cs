@@ -5,10 +5,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using WebDeploy.Model;
+using WebDeploy.Utils;
 
 namespace WebDeploy.Repository
 {
-    public class PackageReceivingRecordRepository:RepositoryBase
+    public class PackageReceivingRecordRepository : RepositoryBase
     {
         public bool HasFinishReceivingNewestPackage(string hostName)
         {
@@ -20,10 +21,10 @@ namespace WebDeploy.Repository
 
         public bool UpdatePackageReceivingRecordMsg(string fingerprint, string msg)
         {
-            string sql = "update PackageReceivingRecord set msg=msg+@msg from package p join deployrecord r on p.packageId=r.packageId join PackageReceivingRecord v on r.deployId=v.deployId where p.fingerprint=@fingerprint";
+            string sql = "update PackageReceivingRecord set msg=isnull(msg,'')+@msg from package p join deployrecord r on p.packageId=r.packageId join PackageReceivingRecord v on r.deployId=v.deployId where p.fingerprint=@fingerprint";
             return base.ExecuteNonQuery(sql,
                 new SqlParameter("@fingerprint", SqlDbType.Char, 32) { Value = fingerprint },
-                new SqlParameter("@msg", SqlDbType.VarChar) { Value = msg }) > 0;
+                new SqlParameter("@msg", SqlDbType.NVarChar) { Value = msg }) > 0;
         }
         public bool FinishReceivingPackage(string fingerprint, string error)
         {
@@ -31,21 +32,30 @@ namespace WebDeploy.Repository
             {
                 string sql = "update PackageReceivingRecord set hasDone=1,Successful=1,endtime=getdate() from package p join deployrecord r on p.packageId=r.packageId join PackageReceivingRecord v on r.deployId=v.deployId where p.fingerprint=@fingerprint";
                 return base.ExecuteNonQuery(sql,
-                    new SqlParameter("@fingerprint", SqlDbType.Char, 32) { Value = fingerprint },
-                    new SqlParameter("@error", SqlDbType.VarChar) { Value = error }) > 0;
+                    new SqlParameter("@fingerprint", SqlDbType.Char, 32) { Value = fingerprint }) > 0;
             }
             else
             {
                 string sql = "update PackageReceivingRecord set error=@error,hasDone=1,Successful=0 from package p join deployrecord r on p.packageId=r.packageId join PackageReceivingRecord v on r.deployId=v.deployId where p.fingerprint=@fingerprint";
                 return base.ExecuteNonQuery(sql,
                     new SqlParameter("@fingerprint", SqlDbType.Char, 32) { Value = fingerprint },
-                    new SqlParameter("@error", SqlDbType.VarChar) { Value = error }) > 0;
+                    new SqlParameter("@error", SqlDbType.NVarChar) { Value = error }) > 0;
             }
         }
 
-        public List<PackageReceivingRecord> GetPackageReceivingRecordList(int deployId)
+        public List<PackageReceivingRecordModel> GetPackageReceivingRecordList(int deployId)
         {
-            return DbContext.Set<PackageReceivingRecord>().Where(p => p.DeployId == deployId).ToList();
+            var list = DbContext.Set<PackageReceivingRecord>().Where(p => p.DeployId == deployId).ToList();
+            return list.Select(p =>
+                new PackageReceivingRecordModel()
+              {
+                  StartTime = p.StartTime.GetShortName(),
+                  EndTime = p.HasDone ? p.EndTime.GetShortName() : "",
+                  Error = p.Error,
+                  Msg = p.Msg ?? "",
+                  ReceiverHostName = p.ReceiverHostName,
+                  Status = p.HasDone ? (p.Successful ? "部署成功" : "部署失败") : "进行中"
+              }).ToList();
         }
     }
 }

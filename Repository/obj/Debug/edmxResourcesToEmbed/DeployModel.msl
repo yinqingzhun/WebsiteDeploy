@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebDeployModelStoreContainer" CdmEntityContainer="DeployEntities">
+    <EntitySetMapping Name="DeployRecord">
+      <EntityTypeMapping TypeName="WebDeploy.Model.DeployRecord">
+        <MappingFragment StoreEntitySet="DeployRecord">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DeployTime" ColumnName="DeployTime" />
+          <ScalarProperty Name="DeployId" ColumnName="DeployId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Package">
+      <EntityTypeMapping TypeName="WebDeploy.Model.Package">
+        <MappingFragment StoreEntitySet="Package">
+          <ScalarProperty Name="File" ColumnName="File" />
+          <ScalarProperty Name="Verified" ColumnName="Verified" />
+          <ScalarProperty Name="Fingerprint" ColumnName="Fingerprint" />
+          <ScalarProperty Name="Enable" ColumnName="Enable" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PackageSize" ColumnName="PackageSize" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageReceivingRecord">
+      <EntityTypeMapping TypeName="WebDeploy.Model.PackageReceivingRecord">
+        <MappingFragment StoreEntitySet="PackageReceivingRecord">
+          <ScalarProperty Name="Error" ColumnName="Error" />
+          <ScalarProperty Name="Msg" ColumnName="Msg" />
+          <ScalarProperty Name="Successful" ColumnName="Successful" />
+          <ScalarProperty Name="HasDone" ColumnName="HasDone" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="DeployId" ColumnName="DeployId" />
+          <ScalarProperty Name="ReceiverHostName" ColumnName="ReceiverHostName" />
+          <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

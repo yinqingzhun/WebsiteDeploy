@@ -1,0 +1,5 @@
+E:\code\WebDeploy\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+E:\code\WebDeploy\Model\bin\Debug\WebDeploy.Model.dll
+E:\code\WebDeploy\Model\bin\Debug\WebDeploy.Model.pdb
+E:\code\WebDeploy\Model\obj\Debug\WebDeploy.Model.dll
+E:\code\WebDeploy\Model\obj\Debug\WebDeploy.Model.pdb

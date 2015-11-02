@@ -14,21 +14,22 @@ namespace WebDeploy.Repository
 
         public int GetDeployId(string packageFingerprint)
         {
-            string sql = "select top 1 r.deployId from package p join deployrecord r on p.packageId=r.packageId where p.fingerprint=@fingerprint";
+            string sql = "select top 1 r.deployId from package p join deployrecord r on p.packageId=r.packageId where p.fingerprint=@fingerprint order by r.deployTime desc";
             var o = base.ExecuteScalar(sql, new SqlParameter("@fingerprint", SqlDbType.Char, 32) { Value = packageFingerprint });
             int i = 0;
             int.TryParse(o.ToString(), out i);
             return i;
         }
 
-       
 
-        public Package GetNewDeployedPackage()
+
+        public Package GetNewDeployedPackage(bool verified)
         {
-            DeployRecord deploy = DbContext.Set<DeployRecord>().OrderByDescending(p => p.DeployId).FirstOrDefault();
-            if (deploy == null)
-                return null;
-            return DbContext.Set<Package>().Find(deploy.PackageId);
+            string sql = " select top 1 p.* from DeployRecord d join Package p on d.packageId=p.packageId where p.Verified=@Verified order by d.DeployTime desc";
+            var list = ExecuteQuery<Package>(sql, new SqlParameter("@Verified", SqlDbType.Bit) { Value = verified });
+            return list.Count == 0 ? null : list.First();
+
+
         }
 
         public List<DeployRecordModel> GetDeployedRecordList()

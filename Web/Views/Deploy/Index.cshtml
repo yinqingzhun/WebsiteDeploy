@@ -38,36 +38,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeployId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeployTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PackageId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PackageName)
-        </td>
-        <td>
-           @Html.Raw(item.PackageSize > 1024 * 1024 ? string.Format("{0:f2}M", item.PackageSize * 1.0 / 1024 / 1024) : "小于1M")
-        </td>
-        <td>
-            @item.CreateTime.GetShortName()
-        </td>
-        <td>
-            @Html.Raw("/upload/" + item.File)
-        </td>
-        <td>
-            @Html.ActionLink("详情", "Detail", new { deployId =item.DeployId})
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeployId)
+            </td>
+            <td>
+                @item.DeployTime.GetShortName()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackageId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackageName)
+            </td>
+            <td>
+                @Html.Raw(item.PackageSize > 1024 * 1024 ? string.Format("{0:f2}M", item.PackageSize * 1.0 / 1024 / 1024) : "小于1M")
+            </td>
+            <td>
+                @item.CreateTime.GetShortName()
+            </td>
+            <td>
+                @Html.Raw("/upload/" + item.File)
+            </td>
+            <td>
+                @Html.ActionLink("详情", "Detail", new { deployId = item.DeployId })
+            </td>
+        </tr>
+    }
 
 </table>

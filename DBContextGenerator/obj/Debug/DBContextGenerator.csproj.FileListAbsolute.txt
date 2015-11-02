@@ -1,0 +1,15 @@
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\DBContextGenerator.dll.config
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\DBContextGenerator.dll
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\DBContextGenerator.pdb
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\EntityFramework.dll
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\EntityFramework.SqlServer.dll
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\EntityFramework.SqlServerCompact.dll
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\System.Data.SqlServerCe.dll
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\EntityFramework.xml
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\EntityFramework.SqlServer.xml
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\EntityFramework.SqlServerCompact.xml
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\code\WebDeploy\DBContextGenerator\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+E:\code\WebDeploy\DBContextGenerator\obj\Debug\DBContextGenerator.dll
+E:\code\WebDeploy\DBContextGenerator\obj\Debug\DBContextGenerator.pdb
+E:\code\WebDeploy\DBContextGenerator\obj\Debug\DBContextGenerator.csprojResolveAssemblyReference.cache

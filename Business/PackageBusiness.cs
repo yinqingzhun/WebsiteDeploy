@@ -47,23 +47,26 @@ namespace WebDeploy.Business
 
         public Package AddPackage(Package package)
         {
+            
+            PackageRepository rep=new PackageRepository();
+            Package p=rep.GetPackage(package.Fingerprint);
+            if (p != null)
+                return p;
+
             package.CreateTime = DateTime.Now;
             package.Enable = true;
             return new PackageRepository().Add(package);
         }
 
-        public string GetAvailableFileName(string fingerprint)
+        public string GetFileName(string fingerprint)
         {
             if (string.IsNullOrWhiteSpace(fingerprint))
                 return string.Empty;
 
-            return new PackageRepository().GetAvailableFileName(fingerprint);
+            return new PackageRepository().GetFileName(fingerprint);
         }
 
-        public string GetAvailableFileName()
-        {
-            return new PackageRepository().GetAvailableFileName();
-        }
+        
 
         public bool SetPackageVerified(int packageId)
         {
