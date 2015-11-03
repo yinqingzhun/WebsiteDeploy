@@ -1,0 +1,96 @@
+﻿@model IEnumerable<WebDeploy.Models.PackageModel>
+@using WebDeploy.Utils
+    @{
+        ViewBag.Title = "Index"; Layout = "~/Views/Shared/_Layout2.cshtml";
+    }
+    <style type="text/css">
+        table {
+            background-color: #eee; /*#e2e2e2*/
+            border-collapse: separate;
+            border-spacing: 1px;
+            width: 100%;
+        }
+
+        td {
+            background-color: #f5f5f5;
+            padding: 3px;
+        }
+
+        th {
+            background-color: #e6f1f6;
+            padding: 5px;
+        }
+    </style>
+    <h2>发布Web包</h2>
+
+    <p>
+        @Html.ActionLink("返回", "Index", "Package")
+    </p>
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageSize)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Verified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.File)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>操作</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PackageId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PackageName)
+                </td>
+                <td>
+                    @Html.Raw(item.PackageSize > 1024 * 1024 ? string.Format("{0:f2}M", item.PackageSize * 1.0 / 1024 / 1024) : "小于1M")
+                </td>
+                <td>
+                    @item.CreateTime.GetShortName()
+                </td>
+                <td>
+                    @Html.Raw(item.Verified ? "<span style='color:green'>是</span>" : "<span style='color:brown'>否</span>")
+                </td>
+                <td>
+                    @Html.Raw("/upload/" + item.File)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <form action="/Deploy/Create" method="post">
+                        <input type="hidden" value="@item.PackageId" name="PackageId">
+                        <input type="submit" value="发布" />
+                    </form>
+                </td>
+            </tr>
+        }
+
+
+
+    </table>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

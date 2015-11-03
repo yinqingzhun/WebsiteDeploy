@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -278,6 +278,8 @@
     <Content Include="Views\Deploy\Index.cshtml" />
     <Content Include="Views\Deploy\Create.cshtml" />
     <Content Include="Views\Deploy\Detail.cshtml" />
+    <None Include="Properties\PublishProfiles\fileDeploy.pubxml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

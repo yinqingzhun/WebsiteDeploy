@@ -13,27 +13,28 @@ namespace WebDeploy.Web.Controllers
         public JsonResult BeginToReceive(string uuid, string hostName)
         {
             PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
-            if (b.AddPackageReceivingRecord(uuid, hostName) != null)
+            var o = b.AddPackageReceivingRecord(uuid, hostName);
+            if (o != null)
+                return Json(new { status = 0, result = new { logId = o.RecordId } });
+            else
+                return Json(new { status = 101 });
+
+        }
+        [HttpPost]
+        public JsonResult UpdateReceiveInfo(int logId, string msg)
+        {
+            PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
+            if (b.UpdatePackageReceivingRecordMsg(logId, msg))
                 return Json(new { status = 0 });
             else
                 return Json(new { status = 101 });
 
         }
         [HttpPost]
-        public JsonResult UpdateReceiveInfo(string uuid, string msg)
+        public JsonResult FinishReceiving(int logId, string error)
         {
             PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
-            if (b.UpdatePackageReceivingRecordMsg(uuid, msg))
-                return Json(new { status = 0 });
-            else
-                return Json(new { status = 101 });
-
-        }
-        [HttpPost]
-        public JsonResult FinishReceiving(string uuid, string error)
-        {
-            PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
-            if (b.FinishReceivingPackage(uuid, error))
+            if (b.FinishReceivingPackage(logId, error))
                 return Json(new { status = 0 });
             else
                 return Json(new { status = 101 });

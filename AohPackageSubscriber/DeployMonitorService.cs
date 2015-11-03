@@ -50,10 +50,9 @@ namespace AohPackageSubscriber
             while (running)
             {
                 string uuid = string.Empty;
+                int logId = 0;
                 try
                 {
-
-
                     //检测站点文件是否需要更新
                     if (!NeedToDownloadDeployedPackage())
                     {
@@ -68,12 +67,17 @@ namespace AohPackageSubscriber
                         Thread.Sleep(5000);
                         continue;
                     }
-                    LogBeginingToUpdate(uuid);
+                    logId = LogBeginingToUpdate(uuid);
                     //检查站点是否存在
-                    if (!IISHelper.ExistWebsite(webSiteName))
+                    bool existWebsite = IISHelper.ExistWebsite(webSiteName);
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" {0}检测到站点{1}。", existWebsite ? "" : "未", webSiteName));
+                    if (!existWebsite)
                     {
                         Uri u = new Uri(webSiteHealthMonitorURL);
-                        IISHelper.CreateWebsite(webSiteName, webSitePath, u.DnsSafeHost, u.Port);
+                        IISHelper.CreateWebsite(webSiteName, webSitePath, u.Port);
+                        if (IISHelper.CreateAppPool(webSiteName))
+                            IISHelper.SetAppPoolForWebsite(webSiteName, webSiteName);
+                        LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 创建站点{0}。", webSiteName));
                     }
 
                     //清理临时目录
@@ -86,44 +90,48 @@ namespace AohPackageSubscriber
                         Thread.Sleep(5000);
                         continue;
                     }
-                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 下载包文件完毕。");
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 下载包文件完毕。");
                     //解压包文件
                     string tempFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, tempDir, tempFileName);
                     ZipHelper.UnZipFile(tempFilePath, tempDir);
-                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 解压包文件完毕。");
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 解压包文件完毕。");
                     //备份当前站点
                     string backup_exclude = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "backup_exclude.txt");
                     XCopy.Copy(webSitePath, Path.Combine(WebSiteDirectoryBackup, DateTime.Now.ToString("yyyy-MM-dd_hhmmss.fff")), backup_exclude);
-                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 备份站点物理目录完毕。");
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 备份站点物理目录完毕。");
                     //覆盖站点的包文件 
                     string source_exclude = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "source_exclude.txt");
                     XCopy.Copy(GetLookLikeWebDeployDirectory(tempDir), webSitePath);
-                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 覆盖站点物理目录完毕。");
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 覆盖站点物理目录完毕。");
+                    //指定站点使用默认物理路径
                     IISHelper.SetWebSitePath(webSiteName, webSitePath);
-                    LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 设置站点的物理路径为默认路径。");
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 设置站点的物理路径为默认路径。");
                     //失败时，回滚到备份文件
                     if (!IsWebsiteHealthy())
                     {
-                        LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + " 检测到站点无法正常访问。");
+                        LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 检测到站点无法正常访问。");
                         //站点切换到备份文件
                         string backupPath = GetNewBackupPackagePath();
                         IISHelper.SetWebSitePath(webSiteName, backupPath);
                         //回滚成功时，覆盖站点默认位置的文件，并将站点路径切换到默认位置
                         XCopy.Copy(backupPath, webSitePath);
                         IISHelper.SetWebSitePath(webSiteName, webSitePath);
-                        LogUpdatingProgress(uuid, DateTime.Now.ToLocalTime() + string.Format(" 回滚站点完毕，站点{0}正常访问。", IsWebsiteHealthy() ? "可以" : "不能"));
-                        LogFinishingUpdating(uuid, "更新站点后无法正常访问站点");
+                        LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 回滚站点完毕，站点{0}正常访问。", IsWebsiteHealthy() ? "可以" : "不能"));
+                        LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 更新站点失败。");
+                        LogFinishingUpdating(logId, "更新站点后无法正常访问站点");
 
                     }
                     else
                     {
                         //通知服务端更新成功
-                        LogFinishingUpdating(uuid);
+                        LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 检测到站点可以正常访问。");
+                        LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 更新站点成功。");
+                        LogFinishingUpdating(logId);
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogFinishingUpdating(uuid, ex.Message);
+                    LogFinishingUpdating(logId, ex.Message);
                     LogHelper.Error("包文件更新失败", ex);
                 }
 
@@ -131,20 +139,32 @@ namespace AohPackageSubscriber
             }
 
         }
-        private void LogBeginingToUpdate(string uuid)
+        private int LogBeginingToUpdate(string uuid)
         {
-            HttpWebRequestHelper.Post(deployServiceHost + "/PackageReceive/BeginToReceive",
-                new Dictionary<string, object>() { { "uuid", uuid }, { "hostName", Dns.GetHostName() } });
+            LogHelper.Info(string.Format("开始更新站点{0}。", webSiteName));
+            string s = HttpWebRequestHelper.Post(deployServiceHost + "/PackageReceive/BeginToReceive",
+                   new Dictionary<string, object>() { { "uuid", uuid }, { "hostName", Dns.GetHostName() } });
+            if (string.IsNullOrWhiteSpace(s))
+                return 0;
+            JObject o = JsonConvert.DeserializeObject<JObject>(s);
+            if (o["status"].ToObject<int>() == 0)
+            {
+                return o["result"]["logId"].ToObject<int>();
+            }
+            return 0;
+
         }
-        private void LogUpdatingProgress(string uuid, string msg)
+        private void LogUpdatingProgress(int logId, string msg)
         {
+            LogHelper.Info(msg);
             HttpWebRequestHelper.Post(deployServiceHost + "/PackageReceive/UpdateReceiveInfo",
-                new Dictionary<string, object>() { { "uuid", uuid }, { "msg", msg } });
+                new Dictionary<string, object>() { { "logId", logId }, { "msg", msg } });
         }
-        private void LogFinishingUpdating(string uuid, string error = "")
+        private void LogFinishingUpdating(int logId, string error = "")
         {
+            LogHelper.Info(string.Format("更新站点{0}。", string.IsNullOrWhiteSpace(error) ? "成功" : "失败") + (string.IsNullOrWhiteSpace(error) ? "" : "失败原因：" + error));
             HttpWebRequestHelper.Post(deployServiceHost + "/PackageReceive/FinishReceiving",
-                new Dictionary<string, object>() { { "uuid", uuid }, { "error", error } });
+                new Dictionary<string, object>() { { "logId", logId }, { "error", error } });
         }
 
         private string GetNewestPackageUUId()
@@ -204,8 +224,14 @@ namespace AohPackageSubscriber
 
         private bool IsWebsiteHealthy()
         {
-            string s = HttpWebRequestHelper.Get(webSiteHealthMonitorURL);
-            return "Status OK".Equals(s);
+            for (int i = 0; i < 3; i++)
+            {
+                string s = HttpWebRequestHelper.Get(webSiteHealthMonitorURL);
+                if ("Status OK".Equals(s))
+                    return true;
+            }
+            return false;
+
         }
 
         private string GetNewBackupPackagePath()

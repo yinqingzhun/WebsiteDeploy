@@ -30,16 +30,16 @@ namespace WebDeploy.Business
             return new PackageReceivingRecordRepository().Add(record);
         }
 
-        public bool UpdatePackageReceivingRecordMsg(string uuid, string msg)
+        public bool UpdatePackageReceivingRecordMsg(int logId, string msg)
         {
             PackageReceivingRecordRepository deployRecordRep = new PackageReceivingRecordRepository();
-            return deployRecordRep.UpdatePackageReceivingRecordMsg(uuid, msg);
+            return deployRecordRep.UpdatePackageReceivingRecordMsg(logId, msg);
         }
 
-        public bool FinishReceivingPackage(string uuid, string error)
+        public bool FinishReceivingPackage(int logId, string error)
         {
             PackageReceivingRecordRepository deployRecordRep = new PackageReceivingRecordRepository();
-            return deployRecordRep.FinishReceivingPackage(uuid, error);
+            return deployRecordRep.FinishReceivingPackage(logId, error);
         }
 
         public bool HasFinishReceivingNewestPackage(string hostName)

@@ -13,23 +13,23 @@ namespace WebDeploy.Utils
         {
             log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
         }
-        public static void Debug(string msg, Exception ex, string loggerName = "DefaultLog")
+        public static void Debug(string msg, Exception ex = null, string loggerName = "DefaultLog")
         {
             Log(LogLevel.Debug, msg, ex, loggerName);
         }
-        public static void Info(string msg, Exception ex, string loggerName = "DefaultLog")
+        public static void Info(string msg, Exception ex = null, string loggerName = "DefaultLog")
         {
             Log(LogLevel.Info, msg, ex, loggerName);
         }
-        public static void Warn(string msg, Exception ex, string loggerName = "DefaultLog")
+        public static void Warn(string msg, Exception ex = null, string loggerName = "DefaultLog")
         {
             Log(LogLevel.Warn, msg, ex, loggerName);
         }
-        public static void Error(string msg, Exception ex, string loggerName = "DefaultLog")
+        public static void Error(string msg, Exception ex = null, string loggerName = "DefaultLog")
         {
             Log(LogLevel.Error, msg, ex, loggerName);
         }
-        public static void Fatal(string msg, Exception ex, string loggerName = "DefaultLog")
+        public static void Fatal(string msg, Exception ex = null, string loggerName = "DefaultLog")
         {
             Log(LogLevel.Fatal, msg, ex, loggerName);
         }

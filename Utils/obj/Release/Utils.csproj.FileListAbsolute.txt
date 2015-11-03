@@ -1,0 +1,7 @@
+E:\code\WebDeploy\Utils\bin\Release\WebDeploy.Utils.dll
+E:\code\WebDeploy\Utils\bin\Release\ICSharpCode.SharpZipLib.dll
+E:\code\WebDeploy\Utils\bin\Release\log4net.dll
+E:\code\WebDeploy\Utils\bin\Release\Newtonsoft.Json.dll
+E:\code\WebDeploy\Utils\bin\Release\log4net.xml
+E:\code\WebDeploy\Utils\bin\Release\Newtonsoft.Json.xml
+E:\code\WebDeploy\Utils\obj\Release\WebDeploy.Utils.dll

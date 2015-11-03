@@ -1,0 +1,14 @@
+E:\code\WebDeploy\Business\bin\Release\WebDeploy.Business.dll
+E:\code\WebDeploy\Business\bin\Release\WebDeploy.Model.dll
+E:\code\WebDeploy\Business\bin\Release\WebDeploy.Repository.dll
+E:\code\WebDeploy\Business\bin\Release\EntityFramework.dll
+E:\code\WebDeploy\Business\bin\Release\WebDeploy.Utils.dll
+E:\code\WebDeploy\Business\bin\Release\ICSharpCode.SharpZipLib.dll
+E:\code\WebDeploy\Business\bin\Release\Newtonsoft.Json.dll
+E:\code\WebDeploy\Business\bin\Release\log4net.dll
+E:\code\WebDeploy\Business\bin\Release\EntityFramework.xml
+E:\code\WebDeploy\Business\bin\Release\Newtonsoft.Json.xml
+E:\code\WebDeploy\Business\bin\Release\log4net.xml
+E:\code\WebDeploy\Business\bin\Release\zh-Hans\EntityFramework.resources.dll
+E:\code\WebDeploy\Business\obj\Release\Business.csprojResolveAssemblyReference.cache
+E:\code\WebDeploy\Business\obj\Release\WebDeploy.Business.dll

@@ -12,24 +12,50 @@ namespace WebDeploy.Utils
     public static class IISHelper
     {
 
-        public static void SetWebSitePath(string websiteName, string websitePath)
+        public static bool SetWebSitePath(string websiteName, string websitePath)
         {
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("set app \"{0}/\" -[path='/'].physicalPath:\"{1}\"", websiteName, websitePath);
-            DosCommandHelper.Execute(cmdName, arguments);
+            string s = DosCommandHelper.Execute(cmdName, arguments);
+            return string.Format("APP 对象“{0}/”已更改", websiteName).Equals(s);
         }
 
-        public static void CreateWebsite(string websiteName, string websitePath, string domainName, int port)
+        public static bool CreateAppPool(string appPoolName)
         {
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
-            string arguments = string.Format("add add site /name:\"{0}\" /physicalPath:\"{1}\" /bindings:http/{2}:{3}: ", websiteName, websitePath, domainName, port);
-            DosCommandHelper.Execute(cmdName, arguments);
+            string arguments = string.Format("add apppool /name:\"{0}\"  /managedRuntimeVersion:\"v4.0\" /autoStart:\"true\" /managedPipelineMode:\"Integrated\" ", appPoolName);
+            string s = DosCommandHelper.Execute(cmdName, arguments);
+            return s.Contains(string.Format("已添加 APPPOOL 对象“{0}”", appPoolName));
+        }
+
+        public static bool CreateWebsite(string websiteName, string websitePath, int port, string appPoolName = "")
+        {
+            const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
+            string arguments = string.Format("add site /name:\"{0}\" /physicalPath:\"{1}\" /bindings:http/*:{2}: ", websiteName, websitePath, port);
+            string s = DosCommandHelper.Execute(cmdName, arguments);
+            return s.Contains(string.Format("已添加 SITE 对象“{0}”", websiteName));
+        }
+
+        public static bool SetAppPoolForWebsite(string websiteName,  string appPoolName)
+        {
+            const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
+            string arguments = string.Format("set site \"{0}\" -[path='/'].applicationPool:\"{1}\"  ", websiteName, appPoolName);
+            string s = DosCommandHelper.Execute(cmdName, arguments);
+            return s.Contains(string.Format("SITE 对象“{0}”已更改", websiteName));
         }
 
         public static bool ExistWebsite(string websiteName)
         {
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
-            string arguments = string.Format("appcmd list site \"{0}\"", websiteName);
+            string arguments = string.Format("list site \"{0}\"", websiteName);
+            return !string.IsNullOrWhiteSpace(DosCommandHelper.Execute(cmdName, arguments));
+        }
+
+
+        public static bool ExistAppPool(string appPoolName)
+        {
+            const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
+            string arguments = string.Format("list app \"{0}\"", appPoolName);
             return !string.IsNullOrWhiteSpace(DosCommandHelper.Execute(cmdName, arguments));
         }
     }

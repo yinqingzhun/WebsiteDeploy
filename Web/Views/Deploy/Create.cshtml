@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebDeploy.Models.PackageModel>
 @using WebDeploy.Utils
     @{
-        ViewBag.Title = "Index";
+        ViewBag.Title = "Index"; Layout = "~/Views/Shared/_Layout2.cshtml";
     }
     <style type="text/css">
         table {
@@ -81,7 +81,7 @@
                 <td>
                     <form action="/Deploy/Create" method="post">
                         <input type="hidden" value="@item.PackageId" name="PackageId">
-                        <input type="submit" value="发布" />
+                        <input type="submit" value="发布" style="font-weight: normal; background: transparent; border: 0; text-decoration: underline;" />
                     </form>
                 </td>
             </tr>

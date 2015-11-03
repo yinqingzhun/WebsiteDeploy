@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebDeploy.Models.PackageModel>
 @using WebDeploy.Utils
 @{
-    ViewBag.Title = "上传Web包";
+    ViewBag.Title = "上传Web包"; Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 <h2>已上传的Web包</h2>
 
@@ -65,9 +65,13 @@
                 {
                     <form action="/Package/SetVerified" method="post">
                         <input type="hidden" value="@item.PackageId" name="PackageId">
-                        <input type="submit" value="通过验证" />
+                        <input type="submit" value="通过验证" style="font-weight: normal; background: transparent; border: 0; text-decoration: underline;" />
                     </form>
                 }
+                <form action="/Deploy/Create" method="post">
+                    <input type="hidden" value="@item.PackageId" name="PackageId">
+                    <input type="submit" value="发布" style="font-weight: normal; background: transparent; border: 0; text-decoration: underline;" />
+                </form>
                 @Html.ActionLink("删除", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>

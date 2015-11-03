@@ -63,94 +63,6 @@ namespace WebDeploy.Utils
                 }
             }
         }
-        public static string BinaryPost(string uri, string name, string path, IDictionary<string, object> parameters)
-        {
-            return BinaryPost(uri, name, path, parameters, Encoding.UTF8);
-        }
-        public static string BinaryPost(string uri, string name, string path, IDictionary<string, object> parameters, Encoding encoding)
-        {
-            try
-            {
-                using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-                {
-                    using (var br = new BinaryReader(fs))
-                    {
-                        var req = WebRequest.Create(uri) as HttpWebRequest;
-                        req.Timeout = RequestTimeout;
-
-                        var boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
-
-                        req.Method = "POST";
-                        req.ContentType = "multipart/form-data; boundary=" + boundary;
-                        req.Accept = "application/json";
-                        req.AllowWriteStreamBuffering = false;
-                        //req.UserAgent = DEFAULT_USER_AGENT;
-
-                        var fbody = new StringBuilder();
-                        var dbody = new StringBuilder();
-
-                        if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(path))
-                        {
-                            fbody.Append("--").Append(boundary).Append("\r\n");
-                            fbody.Append("Content-Disposition: form-data; name=\"").Append(name).Append("\"; filename=\"");
-                            fbody.Append(path).Append("\"\r\nContent-Type: application/octet-stream\r\n\r\n");
-                        }
-
-                        if (parameters != null)
-                        {
-                            foreach (var i in parameters)
-                            {
-                                dbody.Append("\r\n--").Append(boundary).Append("\r\n");
-                                dbody.Append("Content-Disposition: form-data; name=\"").Append(i.Key).Append("\"\r\n\r\n");
-                                dbody.Append(i.Value);
-                            }
-
-                            dbody.Append("\r\n--").Append(boundary).Append("--");
-                        }
-
-                        var fdata = encoding.GetBytes(fbody.ToString());
-                        var ddata = encoding.GetBytes(dbody.ToString());
-
-                        req.ContentLength = fs.Length + fdata.Length + ddata.Length;
-
-                        using (var ustream = req.GetRequestStream())
-                        {
-                            ustream.Write(fdata, 0, fdata.Length);
-
-                            var buffer = new byte[4096];
-
-                            var size = br.Read(buffer, 0, buffer.Length);
-
-                            while (size > 0)
-                            {
-                                ustream.Write(buffer, 0, size);
-
-                                size = br.Read(buffer, 0, buffer.Length);
-                            }
-
-                            ustream.Write(ddata, 0, ddata.Length);
-                        }
-
-                        using (var rep = req.GetResponse() as HttpWebResponse)
-                        {
-                            using (var stream = rep.GetResponseStream())
-                            {
-                                using (var reader = new StreamReader(stream, encoding))
-                                {
-                                    return reader.ReadToEnd();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Fatal("Http Post 文件请求发生错误，url为" + uri, ex);
-
-                return null;
-            }
-        }
         public static string BinaryPost(string uri, string fileKeyName, string fileName, string fileContentType, Stream fileStream, IDictionary<string, object> parameters)
         {
             return BinaryPost(uri, fileKeyName, fileName, fileContentType, fileStream, parameters, Encoding.UTF8);
@@ -225,16 +137,7 @@ namespace WebDeploy.Utils
                     ustream.Flush();
                 }
 
-                using (var rep = req.GetResponse() as HttpWebResponse)
-                {
-                    using (var stream = rep.GetResponseStream())
-                    {
-                        using (var reader = new StreamReader(stream, encoding))
-                        {
-                            return reader.ReadToEnd();
-                        }
-                    }
-                }
+                return GetResponseString(encoding, req);
             }
 
             catch (Exception ex)
@@ -314,30 +217,7 @@ namespace WebDeploy.Utils
                     ustream.Write(data, 0, data.Length);
                 }
 
-                using (var rep = req.GetResponse() as HttpWebResponse)
-                {
-                    if (rep.ContentEncoding.ToLower().Contains("gzip"))
-                    {
-                        using (GZipStream stream = new GZipStream(rep.GetResponseStream(), CompressionMode.Decompress))
-                        {
-                            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                            {
-
-                                return reader.ReadToEnd();
-                            }
-                        }
-                    }
-                    else
-                    {
-                        using (var stream = rep.GetResponseStream())
-                        {
-                            using (var reader = new StreamReader(stream, encoding))
-                            {
-                                return reader.ReadToEnd();
-                            }
-                        }
-                    }
-                }
+                return GetResponseString(encoding, req);
             }
             catch (Exception ex)
             {
