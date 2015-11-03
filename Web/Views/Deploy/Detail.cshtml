@@ -7,6 +7,7 @@
 <style type="text/css">
     .table {
         border: 1px solid #daf3ff;
+        background-color: #EAF8FF;
     }
 
     .table-header {
@@ -33,12 +34,15 @@
     .content-container {
         padding: 8px;
         background: white;
-        border-radius:5px;
-        border:1px solid orange;
-        margin-top:2px;
+        border-radius: 5px;
+        border: 1px solid orange;
+        margin-top: 2px;
+        margin-left:4px;
+        margin-right:3px;
     }
-    .text{
-        padding-left:25px;
+
+    .text {
+        padding-left: 25px;
     }
 </style>
 <h2>Web包的发布详情</h2>
@@ -66,6 +70,9 @@
     {{if list && list.length > 0}}
     {{each list as value i}}
     <div class="content-container">
+        <div style="float:right;">
+            <a href="javascript:void(0)" onclick="delRcvRecord({{value.RecordId}})">删除</a>
+        </div>
         <div class="table-row">
             <div class="table-td-name">接收主机</div>
             <div class="table-td-value">{{value.ReceiverHostName}}</div>
@@ -92,17 +99,27 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript" src="~/Scripts/art-template.js"></script>
     <script type="text/javascript">
+
+        function delRcvRecord(id) {
+            $.post('/PackageReceive/delete', 'recordId=' + id, function (data) {
+                if (data && data.status === 0) {
+                    loadPackageReceivingRecordList();
+                }
+            }, 'json');
+        };
+        function loadPackageReceivingRecordList() {
+            $.get('/deploy/GetPackageReceivingRecordList', location.search.substring(1, location.search.length), function (data) {
+                for (var i = 0; i < data.result.list.length; i++) {
+                    data.result.list[i].MsgList = data.result.list[i].Msg.split('。');
+                }
+                //加载Dom
+                var sliderDom = template("record-tmpl", { list: data.result.list });
+                $("#record-container").html(sliderDom);
+            }, 'json');
+        };
         $(function () {
-            function loadPackageReceivingRecordList() {
-                $.get('/deploy/GetPackageReceivingRecordList', location.search.substring(1, location.search.length), function (data) {
-                    for (var i = 0; i < data.result.list.length; i++) {
-                        data.result.list[i].MsgList = data.result.list[i].Msg.split('。');
-                    }
-                    //加载Dom
-                    var sliderDom = template("record-tmpl", { list: data.result.list });
-                    $("#record-container").html(sliderDom);
-                }, 'json');
-            }
+
+
             loadPackageReceivingRecordList();
             window.setInterval(loadPackageReceivingRecordList, 5000);
 

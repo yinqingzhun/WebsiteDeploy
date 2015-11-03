@@ -49,6 +49,7 @@ namespace WebDeploy.Repository
             return list.Select(p =>
                 new PackageReceivingRecordModel()
               {
+                  RecordId=p.RecordId,
                   StartTime = p.StartTime.GetShortName(),
                   EndTime = p.HasDone ? p.EndTime.GetShortName() : "",
                   Error = p.Error,

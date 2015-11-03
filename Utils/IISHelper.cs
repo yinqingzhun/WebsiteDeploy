@@ -17,7 +17,8 @@ namespace WebDeploy.Utils
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("set app \"{0}/\" -[path='/'].physicalPath:\"{1}\"", websiteName, websitePath);
             string s = DosCommandHelper.Execute(cmdName, arguments);
-            return string.Format("APP 对象“{0}/”已更改", websiteName).Equals(s);
+            LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
+            return s.Contains( string.Format("APP 对象“{0}/”已更改", websiteName));
         }
 
         public static bool CreateAppPool(string appPoolName)
@@ -25,6 +26,7 @@ namespace WebDeploy.Utils
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("add apppool /name:\"{0}\"  /managedRuntimeVersion:\"v4.0\" /autoStart:\"true\" /managedPipelineMode:\"Integrated\" ", appPoolName);
             string s = DosCommandHelper.Execute(cmdName, arguments);
+            LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
             return s.Contains(string.Format("已添加 APPPOOL 对象“{0}”", appPoolName));
         }
 
@@ -33,14 +35,16 @@ namespace WebDeploy.Utils
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("add site /name:\"{0}\" /physicalPath:\"{1}\" /bindings:http/*:{2}: ", websiteName, websitePath, port);
             string s = DosCommandHelper.Execute(cmdName, arguments);
+            LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
             return s.Contains(string.Format("已添加 SITE 对象“{0}”", websiteName));
         }
 
-        public static bool SetAppPoolForWebsite(string websiteName,  string appPoolName)
+        public static bool SetAppPoolForWebsite(string websiteName, string appPoolName)
         {
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("set site \"{0}\" -[path='/'].applicationPool:\"{1}\"  ", websiteName, appPoolName);
             string s = DosCommandHelper.Execute(cmdName, arguments);
+            LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
             return s.Contains(string.Format("SITE 对象“{0}”已更改", websiteName));
         }
 
@@ -48,7 +52,9 @@ namespace WebDeploy.Utils
         {
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("list site \"{0}\"", websiteName);
-            return !string.IsNullOrWhiteSpace(DosCommandHelper.Execute(cmdName, arguments));
+            string s = DosCommandHelper.Execute(cmdName, arguments);
+            LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
+            return !string.IsNullOrWhiteSpace(s);
         }
 
 
@@ -56,7 +62,9 @@ namespace WebDeploy.Utils
         {
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("list app \"{0}\"", appPoolName);
-            return !string.IsNullOrWhiteSpace(DosCommandHelper.Execute(cmdName, arguments));
+            string s = DosCommandHelper.Execute(cmdName, arguments);
+            LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
+            return !string.IsNullOrWhiteSpace(s);
         }
     }
 

@@ -4,6 +4,7 @@
     <EntitySetMapping Name="DeployRecord">
       <EntityTypeMapping TypeName="WebDeploy.Model.DeployRecord">
         <MappingFragment StoreEntitySet="DeployRecord">
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
           <ScalarProperty Name="PackageId" ColumnName="PackageId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -30,6 +31,7 @@
     <EntitySetMapping Name="PackageReceivingRecord">
       <EntityTypeMapping TypeName="WebDeploy.Model.PackageReceivingRecord">
         <MappingFragment StoreEntitySet="PackageReceivingRecord">
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
           <ScalarProperty Name="Error" ColumnName="Error" />
           <ScalarProperty Name="Msg" ColumnName="Msg" />
           <ScalarProperty Name="Successful" ColumnName="Successful" />

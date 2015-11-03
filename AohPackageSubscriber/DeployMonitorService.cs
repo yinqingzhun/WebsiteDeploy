@@ -85,11 +85,9 @@ namespace AohPackageSubscriber
                         DeleteDirectory(tempDir);
                     Directory.CreateDirectory(tempDir);
                     //下载最新可用包文件
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 开始下载包文件。");
                     if (!DownloadDeployPackage(uuid))
-                    {
-                        Thread.Sleep(5000);
-                        continue;
-                    }
+                        throw new Exception("下载文件失败。");
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 下载包文件完毕。");
                     //解压包文件
                     string tempFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, tempDir, tempFileName);
@@ -97,25 +95,32 @@ namespace AohPackageSubscriber
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 解压包文件完毕。");
                     //备份当前站点
                     string backup_exclude = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "backup_exclude.txt");
-                    XCopy.Copy(webSitePath, Path.Combine(WebSiteDirectoryBackup, DateTime.Now.ToString("yyyy-MM-dd_hhmmss.fff")), backup_exclude);
+                    string backup_dir = Path.Combine(WebSiteDirectoryBackup, DateTime.Now.ToString("yyyy-MM-dd_HHmmss.fff"));
+                    XCopy.Copy(webSitePath, backup_dir, backup_exclude);
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 备份站点物理目录完毕。");
+                    //站点切换到备份目录
+                    bool change = IISHelper.SetWebSitePath(webSiteName, backup_dir);
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 站点切换到备份目录{0}。", change ? "成功" : "失败"));
                     //覆盖站点的包文件 
                     string source_exclude = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "source_exclude.txt");
                     XCopy.Copy(GetLookLikeWebDeployDirectory(tempDir), webSitePath);
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 覆盖站点物理目录完毕。");
-                    //指定站点使用默认物理路径
-                    IISHelper.SetWebSitePath(webSiteName, webSitePath);
-                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 设置站点的物理路径为默认路径。");
+                    //站点切换到默认目录
+                    change = IISHelper.SetWebSitePath(webSiteName, webSitePath);
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 站点切换到默认路径{0}。", change ? "成功" : "失败"));
+                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 检测检查站点是否正常。");
                     //失败时，回滚到备份文件
                     if (!IsWebsiteHealthy())
                     {
                         LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 检测到站点无法正常访问。");
                         //站点切换到备份文件
                         string backupPath = GetNewBackupPackagePath();
-                        IISHelper.SetWebSitePath(webSiteName, backupPath);
+                        change = IISHelper.SetWebSitePath(webSiteName, backupPath);
+                        LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 站点切换到备份目录{0}。", change ? "成功" : "失败"));
                         //回滚成功时，覆盖站点默认位置的文件，并将站点路径切换到默认位置
                         XCopy.Copy(backupPath, webSitePath);
-                        IISHelper.SetWebSitePath(webSiteName, webSitePath);
+                        change = IISHelper.SetWebSitePath(webSiteName, webSitePath);
+                        LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 站点切换到默认路径{0}。", change ? "成功" : "失败"));
                         LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 回滚站点完毕，站点{0}正常访问。", IsWebsiteHealthy() ? "可以" : "不能"));
                         LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 更新站点失败。");
                         LogFinishingUpdating(logId, "更新站点后无法正常访问站点");

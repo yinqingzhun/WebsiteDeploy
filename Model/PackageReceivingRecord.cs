@@ -23,5 +23,6 @@ namespace WebDeploy.Model
         public bool Successful { get; set; }
         public string Msg { get; set; }
         public string Error { get; set; }
+        public bool Enabled { get; set; }
     }
 }

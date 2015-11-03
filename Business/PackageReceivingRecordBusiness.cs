@@ -54,5 +54,11 @@ namespace WebDeploy.Business
             return deployRecordRep.GetPackageReceivingRecordList(deployId);
         }
 
+        public void Delete(int recordId)
+        {
+            PackageReceivingRecordRepository deployRecordRep = new PackageReceivingRecordRepository();
+            deployRecordRep.RemoveByPrimaryKey<PackageReceivingRecord>(recordId);
+        }
+
     }
 }

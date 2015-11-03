@@ -19,5 +19,6 @@ namespace WebDeploy.Model
         public int UserId { get; set; }
         public string UserName { get; set; }
         public int PackageId { get; set; }
+        public bool Enabled { get; set; }
     }
 }

@@ -1,2 +1,3 @@
 E:\code\WebDeploy\Model\bin\Release\WebDeploy.Model.dll
 E:\code\WebDeploy\Model\obj\Release\WebDeploy.Model.dll
+E:\code\WebDeploy\Model\obj\Release\Model.csprojResolveAssemblyReference.cache

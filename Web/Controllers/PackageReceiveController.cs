@@ -48,6 +48,13 @@ namespace WebDeploy.Web.Controllers
             bool need = !b.HasFinishReceivingNewestPackage(hostName);
             return Json(new { status = 0, needToDownload = need }, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult Delete(int recordId)
+        {
+            PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
+            b.Delete(recordId);
+            return Json(new { status = 0 });
+        }
 
     }
 }

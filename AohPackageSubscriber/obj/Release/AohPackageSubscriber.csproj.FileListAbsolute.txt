@@ -1,0 +1,14 @@
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\Newtonsoft.Json.dll
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\Topshelf.dll
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\WebDeploy.Utils.dll
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\ICSharpCode.SharpZipLib.dll
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\log4net.dll
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\Newtonsoft.Json.xml
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\log4net.xml
+E:\code\WebDeploy\AohPackageSubscriber\obj\Release\AohPackageSubscriber.csprojResolveAssemblyReference.cache
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\config\backup_exclude.txt
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\config\source_exclude.txt
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\log4net.config
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\AohPackageSubscriber.exe.config
+E:\code\WebDeploy\AohPackageSubscriber\bin\Release\AohPackageSubscriber.exe
+E:\code\WebDeploy\AohPackageSubscriber\obj\Release\AohPackageSubscriber.exe

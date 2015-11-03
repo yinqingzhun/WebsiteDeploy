@@ -14,6 +14,7 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="PackageId" Type="int" Nullable="false" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Package">
           <Key>
@@ -40,8 +41,9 @@
           <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="HasDone" Type="bit" Nullable="false" />
           <Property Name="Successful" Type="bit" Nullable="false" />
-          <Property Name="Msg" Type="varchar(max)" />
-          <Property Name="Error" Type="varchar(max)" />
+          <Property Name="Msg" Type="nvarchar(max)" />
+          <Property Name="Error" Type="nvarchar(max)" />
+          <Property Name="Enabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="WebDeployModelStoreContainer">
           <EntitySet Name="DeployRecord" EntityType="Self.DeployRecord" Schema="dbo" store:Type="Tables" />
@@ -66,6 +68,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="PackageId" Type="Int32" Nullable="false" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Package">
           <Key>
@@ -92,8 +95,9 @@
           <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="HasDone" Type="Boolean" Nullable="false" />
           <Property Name="Successful" Type="Boolean" Nullable="false" />
-          <Property Name="Msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Error" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Error" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -104,6 +108,7 @@
           <EntitySetMapping Name="DeployRecord">
             <EntityTypeMapping TypeName="WebDeploy.Model.DeployRecord">
               <MappingFragment StoreEntitySet="DeployRecord">
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
                 <ScalarProperty Name="PackageId" ColumnName="PackageId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -130,6 +135,7 @@
           <EntitySetMapping Name="PackageReceivingRecord">
             <EntityTypeMapping TypeName="WebDeploy.Model.PackageReceivingRecord">
               <MappingFragment StoreEntitySet="PackageReceivingRecord">
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
                 <ScalarProperty Name="Error" ColumnName="Error" />
                 <ScalarProperty Name="Msg" ColumnName="Msg" />
                 <ScalarProperty Name="Successful" ColumnName="Successful" />

@@ -15,6 +15,7 @@ namespace WebDeploy.Model
 
     public partial class PackageReceivingRecordModel
     {
+        public int RecordId { get; set; }
         [Display(Name = "接收主机")]
         public string ReceiverHostName { get; set; }
         [Display(Name = "开始时间")]

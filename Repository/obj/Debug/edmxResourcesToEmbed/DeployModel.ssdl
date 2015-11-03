@@ -9,6 +9,7 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="PackageId" Type="int" Nullable="false" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Package">
     <Key>
@@ -35,8 +36,9 @@
     <Property Name="EndTime" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="HasDone" Type="bit" Nullable="false" />
     <Property Name="Successful" Type="bit" Nullable="false" />
-    <Property Name="Msg" Type="varchar(max)" />
-    <Property Name="Error" Type="varchar(max)" />
+    <Property Name="Msg" Type="nvarchar(max)" />
+    <Property Name="Error" Type="nvarchar(max)" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
   </EntityType>
   <EntityContainer Name="WebDeployModelStoreContainer">
     <EntitySet Name="DeployRecord" EntityType="Self.DeployRecord" Schema="dbo" store:Type="Tables" />
