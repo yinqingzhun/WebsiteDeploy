@@ -111,7 +111,6 @@ namespace AohPackageSubscriber
                     //站点切换到默认目录
                     change = IISHelper.SetWebSitePath(webSiteName, webSitePath);
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 站点切换到默认路径{0}。", change ? "成功" : "失败"));
-                    LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 检测检查站点是否正常。");
                     //失败时，回滚到备份文件
                     if (!IsWebsiteHealthy(logId))
                     {
