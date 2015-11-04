@@ -72,6 +72,11 @@ namespace WebDeploy.Repository
 
         }
 
+        public Dictionary<int, int> GetDeployCountForPackage(IEnumerable<int> packageIdList)
+        {
+            return DbContext.Set<DeployRecord>().Where(p => packageIdList.Contains(p.PackageId)).GroupBy(p => p.PackageId).ToDictionary(m => m.Key, m => m.Count());
+        }
+
     }
 
 

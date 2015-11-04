@@ -25,7 +25,8 @@ namespace WebDeploy.Business
                 StartTime = DateTime.Now,
                 EndTime = DateTime.Now,
                 Successful = false,
-                DeployId = deployId
+                DeployId = deployId,
+                Enabled = true
             };
             return new PackageReceivingRecordRepository().Add(record);
         }
@@ -57,7 +58,9 @@ namespace WebDeploy.Business
         public void Delete(int recordId)
         {
             PackageReceivingRecordRepository deployRecordRep = new PackageReceivingRecordRepository();
-            deployRecordRep.RemoveByPrimaryKey<PackageReceivingRecord>(recordId);
+            var o = deployRecordRep.FindByPrimaryKey<PackageReceivingRecord>(recordId);
+            o.Enabled = false;
+            deployRecordRep.Update(o);
         }
 
     }

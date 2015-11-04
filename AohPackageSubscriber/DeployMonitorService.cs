@@ -178,25 +178,39 @@ namespace AohPackageSubscriber
 
         private string GetNewestPackageUUId()
         {
-            string s = HttpWebRequestHelper.Get(deployServiceHost + "/Deploy/GetNewDeployedPackageUUId?verified=" + requireVerifiedForNewPackage);
-            if (string.IsNullOrWhiteSpace(s))
-                return string.Empty;
-            JObject o = JsonConvert.DeserializeObject<JObject>(s);
-            if (o["status"].ToObject<int>() == 0)
+            try
             {
-                return o["result"]["uuid"].ToString();
+                string s = HttpWebRequestHelper.Get(deployServiceHost + "/Deploy/GetNewDeployedPackageUUId?verified=" + requireVerifiedForNewPackage);
+                if (string.IsNullOrWhiteSpace(s))
+                    return string.Empty;
+                JObject o = JsonConvert.DeserializeObject<JObject>(s);
+                if (o["status"].ToObject<int>() == 0)
+                {
+                    return o["result"]["uuid"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(ex.Message);
             }
             return string.Empty;
         }
         private bool NeedToDownloadDeployedPackage()
         {
-            string s = HttpWebRequestHelper.Get(deployServiceHost + "/PackageReceive/NeedToDownloadDeployedPackage?hostName=" + Dns.GetHostName());
-            if (string.IsNullOrWhiteSpace(s))
-                return false;
-            JObject o = JsonConvert.DeserializeObject<JObject>(s);
-            if (o["status"].ToObject<int>() == 0)
+            try
             {
-                return o["needToDownload"].ToObject<bool>();
+                string s = HttpWebRequestHelper.Get(deployServiceHost + "/PackageReceive/NeedToDownloadDeployedPackage?hostName=" + Dns.GetHostName());
+                if (string.IsNullOrWhiteSpace(s))
+                    return false;
+                JObject o = JsonConvert.DeserializeObject<JObject>(s);
+                if (o["status"].ToObject<int>() == 0)
+                {
+                    return o["needToDownload"].ToObject<bool>();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error(ex.Message);
             }
             return false;
         }
@@ -236,9 +250,16 @@ namespace AohPackageSubscriber
             for (int i = 0; i < 5; i++)
             {
                 LogUpdatingProgress(recordId, DateTime.Now.ToLocalTime() + string.Format(" 第{0}次检查站点是否正常。", i + 1));
-                string s = HttpWebRequestHelper.Get(webSiteHealthMonitorURL);
-                if ("Status OK".Equals(s))
-                    return true;
+                try
+                {
+                    string s = HttpWebRequestHelper.Get(webSiteHealthMonitorURL);
+                    if ("Status OK".Equals(s))
+                        return true;
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Error(ex.Message);
+                }
                 LogUpdatingProgress(recordId, DateTime.Now.ToLocalTime() + string.Format(" 站点访问异常，3秒后重试。", i + 1));
                 Thread.Sleep(3000);
             }

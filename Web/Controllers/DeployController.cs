@@ -39,8 +39,9 @@ namespace WebDeploy.Web.Controllers
         public ActionResult Create(int packageId)
         {
             DeployRecordBusiness b = new DeployRecordBusiness();
-            if (b.AddDeployRecord(packageId) != null)
-                return RedirectToAction("Index");
+            var o = b.AddDeployRecord(packageId);
+            if (o != null)
+                return RedirectToAction("Detail", new { deployId = o.DeployId });
             return View();
         }
 
@@ -52,7 +53,7 @@ namespace WebDeploy.Web.Controllers
             return View(o);
         }
 
-       
+
 
 
         public JsonResult GetNewDeployedPackageUUId(bool verified)
@@ -66,7 +67,7 @@ namespace WebDeploy.Web.Controllers
                 {
                     uuid = p == null ? "" : p.Fingerprint
                 }
-            },JsonRequestBehavior.AllowGet);
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetPackageReceivingRecordList(int deployId)

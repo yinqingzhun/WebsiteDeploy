@@ -10,10 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/deploy.mdf">
-      <publishTime>11/03/2015 18:02:14</publishTime>
+      <publishTime>11/03/2015 18:25:43</publishTime>
     </File>
     <File Include="App_Data/deploy_log.ldf">
-      <publishTime>11/03/2015 18:02:14</publishTime>
+      <publishTime>11/03/2015 18:25:43</publishTime>
     </File>
     <File Include="bin/amd64/Microsoft.VC90.CRT/Microsoft.VC90.CRT.manifest">
       <publishTime>10/27/2015 09:17:13</publishTime>
@@ -214,19 +214,19 @@
       <publishTime>10/26/2015 18:33:14</publishTime>
     </File>
     <File Include="bin/WebDeploy.Business.dll">
-      <publishTime>11/03/2015 18:02:13</publishTime>
+      <publishTime>11/04/2015 11:26:06</publishTime>
     </File>
     <File Include="bin/WebDeploy.Model.dll">
-      <publishTime>11/03/2015 18:02:12</publishTime>
+      <publishTime>11/04/2015 10:57:44</publishTime>
     </File>
     <File Include="bin/WebDeploy.Repository.dll">
-      <publishTime>11/03/2015 18:02:13</publishTime>
+      <publishTime>11/04/2015 11:26:05</publishTime>
     </File>
     <File Include="bin/WebDeploy.Utils.dll">
-      <publishTime>11/03/2015 17:27:16</publishTime>
+      <publishTime>11/04/2015 10:57:45</publishTime>
     </File>
     <File Include="bin/WebDeploy.Web.dll">
-      <publishTime>11/03/2015 18:02:14</publishTime>
+      <publishTime>11/04/2015 11:31:25</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>10/26/2015 18:34:20</publishTime>
@@ -628,7 +628,7 @@
       <publishTime>11/03/2015 17:07:07</publishTime>
     </File>
     <File Include="Views/Deploy/Detail.cshtml">
-      <publishTime>11/03/2015 18:00:37</publishTime>
+      <publishTime>11/04/2015 11:07:55</publishTime>
     </File>
     <File Include="Views/Deploy/Index.cshtml">
       <publishTime>11/03/2015 15:52:33</publishTime>
@@ -670,7 +670,7 @@
       <publishTime>10/22/2015 14:56:42</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/03/2015 15:56:02</publishTime>
+      <publishTime>11/04/2015 10:58:02</publishTime>
     </File>
   </ItemGroup>
 </Project>

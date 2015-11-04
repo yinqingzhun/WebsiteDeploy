@@ -45,11 +45,11 @@ namespace WebDeploy.Repository
 
         public List<PackageReceivingRecordModel> GetPackageReceivingRecordList(int deployId)
         {
-            var list = DbContext.Set<PackageReceivingRecord>().Where(p => p.DeployId == deployId).ToList();
+            var list = DbContext.Set<PackageReceivingRecord>().Where(p => p.DeployId == deployId && p.Enabled).ToList();
             return list.Select(p =>
                 new PackageReceivingRecordModel()
               {
-                  RecordId=p.RecordId,
+                  RecordId = p.RecordId,
                   StartTime = p.StartTime.GetShortName(),
                   EndTime = p.HasDone ? p.EndTime.GetShortName() : "",
                   Error = p.Error,

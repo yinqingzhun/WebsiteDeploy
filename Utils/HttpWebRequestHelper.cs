@@ -19,21 +19,15 @@ namespace WebDeploy.Utils
         }
         public static string Get(string uri, Encoding encoding)
         {
-            try
-            {
-                var req = WebRequest.Create(uri) as HttpWebRequest;
-                req.Timeout = RequestTimeout;
-                req.Method = "GET";
-                req.UserAgent = DEFAULT_USER_AGENT;
-                req.Accept = "application/json";
 
-                return GetResponseString(encoding, req);
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Fatal("Http Get请求发生错误，url为" + uri, ex);
-                return null;
-            }
+            var req = WebRequest.Create(uri) as HttpWebRequest;
+            req.Timeout = RequestTimeout;
+            req.Method = "GET";
+            req.UserAgent = DEFAULT_USER_AGENT;
+            req.Accept = "application/json";
+
+            return GetResponseString(encoding, req);
+
         }
 
         private static string GetResponseString(Encoding encoding, HttpWebRequest req)
@@ -78,74 +72,65 @@ namespace WebDeploy.Utils
             if (encoding == null)
                 encoding = Encoding.UTF8;
 
-            try
+
+            var req = WebRequest.Create(uri) as HttpWebRequest;
+            req.Timeout = RequestTimeout;
+            var boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+
+            req.Method = "POST";
+            req.ContentType = "multipart/form-data; boundary=" + boundary;
+            req.Accept = "application/json";
+            req.AllowWriteStreamBuffering = false;
+            //req.UserAgent = DEFAULT_USER_AGENT;
+
+            var fbody = new StringBuilder();
+            var dbody = new StringBuilder();
+
+
+            fbody.Append("--").Append(boundary).Append("\r\n");
+            fbody.Append("Content-Disposition: form-data; name=\"").Append(fileKeyName).Append("\"; filename=\"");
+            fbody.Append(fileName).Append("\"\r\nContent-Type: application/octet-stream\r\n\r\n");
+
+
+            if (parameters != null)
             {
-
-                var req = WebRequest.Create(uri) as HttpWebRequest;
-                req.Timeout = RequestTimeout;
-                var boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
-
-                req.Method = "POST";
-                req.ContentType = "multipart/form-data; boundary=" + boundary;
-                req.Accept = "application/json";
-                req.AllowWriteStreamBuffering = false;
-                //req.UserAgent = DEFAULT_USER_AGENT;
-
-                var fbody = new StringBuilder();
-                var dbody = new StringBuilder();
-
-
-                fbody.Append("--").Append(boundary).Append("\r\n");
-                fbody.Append("Content-Disposition: form-data; name=\"").Append(fileKeyName).Append("\"; filename=\"");
-                fbody.Append(fileName).Append("\"\r\nContent-Type: application/octet-stream\r\n\r\n");
-
-
-                if (parameters != null)
+                foreach (var i in parameters)
                 {
-                    foreach (var i in parameters)
-                    {
-                        dbody.Append("\r\n--").Append(boundary).Append("\r\n");
-                        dbody.Append("Content-Disposition: form-data; name=\"").Append(i.Key).Append("\"\r\n\r\n");
-                        dbody.Append(i.Value);
-                    }
-
-                    dbody.Append("\r\n--").Append(boundary).Append("--");
+                    dbody.Append("\r\n--").Append(boundary).Append("\r\n");
+                    dbody.Append("Content-Disposition: form-data; name=\"").Append(i.Key).Append("\"\r\n\r\n");
+                    dbody.Append(i.Value);
                 }
 
-                var fdata = encoding.GetBytes(fbody.ToString());
-                var ddata = encoding.GetBytes(dbody.ToString());
+                dbody.Append("\r\n--").Append(boundary).Append("--");
+            }
 
-                req.ContentLength = fileStream.Length + fdata.Length + ddata.Length;
+            var fdata = encoding.GetBytes(fbody.ToString());
+            var ddata = encoding.GetBytes(dbody.ToString());
 
-                using (var ustream = req.GetRequestStream())
+            req.ContentLength = fileStream.Length + fdata.Length + ddata.Length;
+
+            using (var ustream = req.GetRequestStream())
+            {
+                ustream.Write(fdata, 0, fdata.Length);
+
+                var buffer = new byte[4096];
+
+                fileStream.Position = 0;
+                var size = fileStream.Read(buffer, 0, buffer.Length);
+
+                while (size > 0)
                 {
-                    ustream.Write(fdata, 0, fdata.Length);
+                    ustream.Write(buffer, 0, size);
 
-                    var buffer = new byte[4096];
-
-                    fileStream.Position = 0;
-                    var size = fileStream.Read(buffer, 0, buffer.Length);
-
-                    while (size > 0)
-                    {
-                        ustream.Write(buffer, 0, size);
-
-                        size = fileStream.Read(buffer, 0, buffer.Length);
-                    }
-
-                    ustream.Write(ddata, 0, ddata.Length);
-                    ustream.Flush();
+                    size = fileStream.Read(buffer, 0, buffer.Length);
                 }
 
-                return GetResponseString(encoding, req);
+                ustream.Write(ddata, 0, ddata.Length);
+                ustream.Flush();
             }
 
-            catch (Exception ex)
-            {
-                LogHelper.Fatal("Http Post 文件请求发生错误，url为" + uri, ex);
+            return GetResponseString(encoding, req);
 
-                return null;
-            }
         }
         public static string Post(string uri, IDictionary<string, object> parameters)
         {
@@ -153,45 +138,39 @@ namespace WebDeploy.Utils
         }
         public static string Post(string uri, IDictionary<string, object> parameters, Encoding encoding)
         {
-            try
+
+            var req = WebRequest.Create(uri) as HttpWebRequest;
+            req.Timeout = RequestTimeout;
+
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+            req.Accept = "application/json";
+            req.UserAgent = DEFAULT_USER_AGENT;
+
+            var buffer = string.Empty;
+
+            if (parameters != null)
             {
-                var req = WebRequest.Create(uri) as HttpWebRequest;
-                req.Timeout = RequestTimeout;
-
-                req.Method = "POST";
-                req.ContentType = "application/x-www-form-urlencoded";
-                req.Accept = "application/json";
-                req.UserAgent = DEFAULT_USER_AGENT;
-
-                var buffer = string.Empty;
-
-                if (parameters != null)
+                foreach (var i in parameters.Keys)
                 {
-                    foreach (var i in parameters.Keys)
+                    if (string.Empty != buffer)
                     {
-                        if (string.Empty != buffer)
-                        {
-                            buffer += "&";
-                        }
-
-                        buffer += i + "=" + System.Web.HttpUtility.UrlEncode(Convert.ToString(parameters[i]));
+                        buffer += "&";
                     }
+
+                    buffer += i + "=" + System.Web.HttpUtility.UrlEncode(Convert.ToString(parameters[i]));
                 }
-
-                var data = encoding.GetBytes(buffer);
-
-                using (var ustream = req.GetRequestStream())
-                {
-                    ustream.Write(data, 0, data.Length);
-                }
-
-                return GetResponseString(encoding, req);
             }
-            catch (Exception ex)
+
+            var data = encoding.GetBytes(buffer);
+
+            using (var ustream = req.GetRequestStream())
             {
-                LogHelper.Fatal("Http Post 请求发生错误，url为" + uri + ",请求参数为 " + JsonConvert.SerializeObject(parameters), ex);
-                return null;
+                ustream.Write(data, 0, data.Length);
             }
+
+            return GetResponseString(encoding, req);
+
         }
 
         public static string PostRaw(string uri, string content, string mimeType)
@@ -201,29 +180,23 @@ namespace WebDeploy.Utils
         public static string PostRaw(string uri, string content, string mimeType, Encoding encoding
              )
         {
-            try
+
+            var req = WebRequest.Create(uri) as HttpWebRequest;
+            req.Timeout = RequestTimeout;
+            req.Method = "POST";
+            req.ContentType = mimeType;
+            req.Accept = "application/json";
+            req.UserAgent = DEFAULT_USER_AGENT;
+
+            var data = encoding.GetBytes(content);
+
+            using (var ustream = req.GetRequestStream())
             {
-                var req = WebRequest.Create(uri) as HttpWebRequest;
-                req.Timeout = RequestTimeout;
-                req.Method = "POST";
-                req.ContentType = mimeType;
-                req.Accept = "application/json";
-                req.UserAgent = DEFAULT_USER_AGENT;
-
-                var data = encoding.GetBytes(content);
-
-                using (var ustream = req.GetRequestStream())
-                {
-                    ustream.Write(data, 0, data.Length);
-                }
-
-                return GetResponseString(encoding, req);
+                ustream.Write(data, 0, data.Length);
             }
-            catch (Exception ex)
-            {
-                LogHelper.Fatal("Http Post 请求发生错误，url为" + uri + ",请求内容为 " + content, ex);
-                return null;
-            }
+
+            return GetResponseString(encoding, req);
+
         }
 
 

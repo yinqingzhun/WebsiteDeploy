@@ -13,7 +13,7 @@ namespace WebDeploy.Business
     {
         public Package GetNewDeployedPackage(bool verified)
         {
-            return new DeployRecordRepository().GetNewDeployedPackage( verified);
+            return new DeployRecordRepository().GetNewDeployedPackage(verified);
         }
 
         public List<DeployRecordModel> GetDeployedRecordList()
@@ -28,7 +28,8 @@ namespace WebDeploy.Business
                 PackageId = packageId,
                 UserId = 0,
                 UserName = "",
-                DeployTime = DateTime.Now
+                DeployTime = DateTime.Now,
+                Enabled = true
             };
             return new DeployRecordRepository().Add(o);
 
@@ -39,7 +40,15 @@ namespace WebDeploy.Business
             return new DeployRecordRepository().GetDeployedRecord(deployRecordId);
         }
 
-         
+        public Dictionary<int, int> GetDeployCountForPackage(IEnumerable<int> packageIdList)
+        {
+            return new DeployRecordRepository().GetDeployCountForPackage(packageIdList);
+        }
+
+
+
+
+
 
     }
 }

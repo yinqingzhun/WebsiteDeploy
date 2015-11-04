@@ -27,10 +27,22 @@ namespace WebDeploy.Web.Controllers
             var list = b.GetPackageList();
             var count = b.GetPackageCount();
 
-            List<PackageModel> results = new List<PackageModel>();
-            list.ForEach(p => results.Add(ObjectCopier.Copy<PackageModel>(p)));
+            DeployRecordBusiness drb = new DeployRecordBusiness();
+            var packageIdAndDeployedCountPairs = drb.GetDeployCountForPackage(list.Select(p => p.PackageId));
 
-            PagerHtmlHelper.Generate(ViewData, pageIndex, pageSize, count);
+            List<PackageModel> results = new List<PackageModel>();
+            list.ForEach(p =>
+            {
+                p.Description = "暂未发布";
+                if (packageIdAndDeployedCountPairs.ContainsKey(p.PackageId))
+                    p.Description = string.Format("已发布{0}次", packageIdAndDeployedCountPairs[p.PackageId]);
+
+
+                results.Add(ObjectCopier.Copy<PackageModel>(p));
+            });
+
+
+
             return View(results);
         }
 
