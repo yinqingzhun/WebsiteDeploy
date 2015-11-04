@@ -17,8 +17,6 @@ E:\code\WebDeploy\Repository\obj\Debug\WebDeploy.Repository.dll
 E:\code\WebDeploy\Repository\obj\Debug\WebDeploy.Repository.pdb
 E:\code\WebDeploy\Repository\bin\Debug\WebDeploy.Utils.dll
 E:\code\WebDeploy\Repository\bin\Debug\ICSharpCode.SharpZipLib.dll
-E:\code\WebDeploy\Repository\bin\Debug\Newtonsoft.Json.dll
 E:\code\WebDeploy\Repository\bin\Debug\log4net.dll
 E:\code\WebDeploy\Repository\bin\Debug\WebDeploy.Utils.pdb
-E:\code\WebDeploy\Repository\bin\Debug\Newtonsoft.Json.xml
 E:\code\WebDeploy\Repository\bin\Debug\log4net.xml

@@ -13,7 +13,7 @@ namespace WebDeploy.Repository
     {
         public bool HasFinishReceivingNewestPackage(string hostName)
         {
-            string sql = "select count(r.deployId) from PackageReceivingRecord r where r.ReceiverHostName=@hostName and r.deployId=(select max(deployId) from DeployRecord)";
+            string sql = "select count(r.deployId) from PackageReceivingRecord r where r.enabled=1 and  r.ReceiverHostName=@hostName and r.deployId=(select max(deployId) from DeployRecord)";
             var o = base.ExecuteScalar(sql, new SqlParameter("@hostName", SqlDbType.VarChar, 50) { Value = hostName });
             return int.Parse(o.ToString()) > 0;
 

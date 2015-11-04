@@ -25,7 +25,7 @@ namespace WebDeploy.Repository
 
         public Package GetNewDeployedPackage(bool verified)
         {
-            string sql = " select top 1 p.* from DeployRecord d join Package p on d.packageId=p.packageId where p.Verified=@Verified order by d.DeployTime desc";
+            string sql = " select top 1 p.* from DeployRecord d join Package p on d.packageId=p.packageId where p.enable=1 and p.Verified=@Verified order by d.DeployTime desc";
             var list = ExecuteQuery<Package>(sql, new SqlParameter("@Verified", SqlDbType.Bit) { Value = verified });
             return list.Count == 0 ? null : list.First();
 

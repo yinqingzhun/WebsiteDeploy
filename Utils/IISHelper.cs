@@ -11,14 +11,29 @@ namespace WebDeploy.Utils
 {
     public static class IISHelper
     {
-
+        public static bool StartWebSitePath(string websiteName)
+        {
+            const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
+            string arguments = string.Format("start site \"{0}/\"", websiteName);
+            string s = DosCommandHelper.Execute(cmdName, arguments);
+            LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
+            return s.Contains(string.Format("“{0}”已成功启动", websiteName));
+        }
+        public static bool StopWebSitePath(string websiteName)
+        {
+            const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
+            string arguments = string.Format("stop site \"{0}/\"", websiteName);
+            string s = DosCommandHelper.Execute(cmdName, arguments);
+            LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
+            return s.Contains(string.Format("“{0}”已成功停止", websiteName));
+        }
         public static bool SetWebSitePath(string websiteName, string websitePath)
         {
             const string cmdName = @"C:\Windows\System32\inetsrv\appcmd.exe";
             string arguments = string.Format("set app \"{0}/\" -[path='/'].physicalPath:\"{1}\"", websiteName, websitePath);
             string s = DosCommandHelper.Execute(cmdName, arguments);
             LogHelper.Info(string.Format("执行命令 {0} {1}。执行的结果为：{2}", cmdName, arguments, s));
-            return s.Contains( string.Format("APP 对象“{0}/”已更改", websiteName));
+            return s.Contains(string.Format("APP 对象“{0}/”已更改", websiteName));
         }
 
         public static bool CreateAppPool(string appPoolName)

@@ -4,7 +4,7 @@
     ViewBag.Title = "新增"; Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<h2></h2>
+<h2>上传Web包</h2>
 
 @using (Html.BeginForm("Create", "Package", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -35,7 +35,7 @@
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
+            @Html.TextAreaFor(model => model.Description, new { rows = 5 })
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
@@ -54,7 +54,9 @@
     <script type="text/javascript">
         $(function () {
             $(':file').on('change', function () {
-                $('[name=PackageName]').val(this.files !== undefined ? this.files[0].name : (this.value.substring(this.value.lastIndexOf('\\')+1,this.value.length)));
+                $('[name=PackageName]').val(this.files !== undefined ? this.files[0].name : (this.value.substring
+
+(this.value.lastIndexOf('\\') + 1, this.value.length)));
             });
 
         });
