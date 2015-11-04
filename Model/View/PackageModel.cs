@@ -22,9 +22,12 @@ namespace WebDeploy.Models
         [Display(Name = "已验证")]
         public bool Verified { get; set; }
         [Required]
-        [Display(Name="包文件")]
+        [Display(Name = "包文件")]
         public string File { get; set; }
-        [Display(Name = "备注")]
+        [Display(Name = "描述")]
         public string Description { get; set; }
+        [Display(Name = "备注")]
+        public string ExtraInfo { get; set; }
+
     }
 }

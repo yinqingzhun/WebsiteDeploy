@@ -33,12 +33,11 @@ namespace WebDeploy.Web.Controllers
             List<PackageModel> results = new List<PackageModel>();
             list.ForEach(p =>
             {
-                p.Description = "暂未发布";
+                var q = ObjectCopier.Copy<PackageModel>(p);
+                q.ExtraInfo = "暂未发布";
                 if (packageIdAndDeployedCountPairs.ContainsKey(p.PackageId))
-                    p.Description = string.Format("已发布{0}次", packageIdAndDeployedCountPairs[p.PackageId]);
-
-
-                results.Add(ObjectCopier.Copy<PackageModel>(p));
+                    q.ExtraInfo = string.Format("已发布{0}次", packageIdAndDeployedCountPairs[p.PackageId]);
+                results.Add(q);
             });
 
 
