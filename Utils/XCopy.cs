@@ -10,10 +10,10 @@ namespace WebDeploy.Utils
 {
     public class XCopy
     {
-        public static bool Copy(string solutionDirectory, string targetDirectory, string exclude = "")
+        public static bool Copy(string sourceDirectory, string targetDirectory, string exclude = "")
         {
             string cmdName = "xcopy";
-            string arguments = string.Format(" \"{0}\" \"{1}\" /i/e/v/Y", solutionDirectory, targetDirectory);
+            string arguments = string.Format(" \"{0}\" \"{1}\" /i/e/v/Y", sourceDirectory, targetDirectory);
             if (File.Exists(exclude))
                 arguments += string.Format(" /EXCLUDE:{0}", exclude);
             string s = DosCommandHelper.Execute(cmdName, arguments);
