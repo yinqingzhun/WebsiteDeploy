@@ -43,10 +43,10 @@ namespace WebDeploy.Business
             return deployRecordRep.FinishReceivingPackage(logId, error);
         }
 
-        public bool HasFinishReceivingNewestPackage(string hostName)
+        public bool HasFinishReceivingNewestPackage(string hostName, bool verified)
         {
             PackageReceivingRecordRepository deployRecordRep = new PackageReceivingRecordRepository();
-            return deployRecordRep.HasFinishReceivingNewestPackage(hostName);
+            return deployRecordRep.HasFinishReceivingNewestPackage(hostName,verified);
         }
 
         public List<PackageReceivingRecordModel> GetPackageReceivingRecordList(int deployId)

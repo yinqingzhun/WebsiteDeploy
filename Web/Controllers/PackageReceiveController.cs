@@ -42,10 +42,10 @@ namespace WebDeploy.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult NeedToDownloadDeployedPackage(string hostName)
+        public JsonResult NeedToDownloadDeployedPackage(string hostName, bool verified=true)
         {
             PackageReceivingRecordBusiness b = new PackageReceivingRecordBusiness();
-            bool need = !b.HasFinishReceivingNewestPackage(hostName);
+            bool need = !b.HasFinishReceivingNewestPackage(hostName,verified);
             return Json(new { status = 0, needToDownload = need }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]

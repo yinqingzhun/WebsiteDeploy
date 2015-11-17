@@ -233,7 +233,7 @@ namespace AohPackageSubscriber
         {
             try
             {
-                string s = HttpWebRequestHelper.Get(deployServiceHost + "/PackageReceive/NeedToDownloadDeployedPackage?hostName=" + Dns.GetHostName());
+                string s = HttpWebRequestHelper.Get(deployServiceHost + "/PackageReceive/NeedToDownloadDeployedPackage?hostName=" + Dns.GetHostName() + "&verified=" + requireVerifiedForNewPackage);
                 if (string.IsNullOrWhiteSpace(s))
                     return false;
                 JObject o = JsonConvert.DeserializeObject<JObject>(s);

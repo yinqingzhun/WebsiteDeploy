@@ -11,10 +11,10 @@ namespace WebDeploy.Repository
 {
     public class PackageReceivingRecordRepository : RepositoryBase
     {
-        public bool HasFinishReceivingNewestPackage(string hostName)
+        public bool HasFinishReceivingNewestPackage(string hostName, bool verified)
         {
-            string sql = "select count(r.deployId) from PackageReceivingRecord r where r.enabled=1 and  r.ReceiverHostName=@hostName and r.deployId=(select max(deployId) from DeployRecord)";
-            var o = base.ExecuteScalar(sql, new SqlParameter("@hostName", SqlDbType.VarChar, 50) { Value = hostName });
+            string sql = "select count(r.deployId) from PackageReceivingRecord r join DeployRecord dr on r.DeployId=dr.DeployId join package p on dr.PackageId=p.PackageId where r.enabled=1 and  r.ReceiverHostName=@hostName and r.deployId=(select max(deployId) from DeployRecord) and p.Verified=@verified";
+            var o = base.ExecuteScalar(sql, new SqlParameter("@hostName", SqlDbType.VarChar, 50) { Value = hostName }, new SqlParameter("@verified", SqlDbType.Bit) { Value = verified });
             return int.Parse(o.ToString()) > 0;
 
         }

@@ -20,6 +20,8 @@ namespace WebDeploy.Utils
             //make the window Hidden
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.RedirectStandardInput = true;
             //Send the Source and destination as Arguments to the process
             startInfo.Arguments = arguments;
             try

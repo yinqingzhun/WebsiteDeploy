@@ -22,10 +22,14 @@ namespace WebDeploy.Repository
         }
 
 
-
+        /// <summary>
+        /// 获取最新的发布包
+        /// </summary>
+        /// <param name="verified"></param>
+        /// <returns></returns>
         public Package GetNewDeployedPackage(bool verified)
         {
-            string sql = " select top 1 p.* from DeployRecord d join Package p on d.packageId=p.packageId where p.enable=1 and p.Verified=@Verified order by d.DeployTime desc";
+            string sql = " select top 1 p.* from DeployRecord d join Package p on d.packageId=p.packageId where p.enable=1 and p.Verified=@Verified  and d.DeployId=(select max(deployid) from DeployRecord)";
             var list = ExecuteQuery<Package>(sql, new SqlParameter("@Verified", SqlDbType.Bit) { Value = verified });
             return list.Count == 0 ? null : list.First();
 

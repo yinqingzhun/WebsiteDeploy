@@ -214,19 +214,19 @@
       <publishTime>10/26/2015 18:33:14</publishTime>
     </File>
     <File Include="bin/WebDeploy.Business.dll">
-      <publishTime>11/04/2015 17:17:58</publishTime>
+      <publishTime>11/17/2015 18:10:35</publishTime>
     </File>
     <File Include="bin/WebDeploy.Model.dll">
       <publishTime>11/04/2015 14:39:41</publishTime>
     </File>
     <File Include="bin/WebDeploy.Repository.dll">
-      <publishTime>11/04/2015 17:17:57</publishTime>
+      <publishTime>11/17/2015 18:10:34</publishTime>
     </File>
     <File Include="bin/WebDeploy.Utils.dll">
-      <publishTime>11/04/2015 16:57:16</publishTime>
+      <publishTime>11/17/2015 18:10:32</publishTime>
     </File>
     <File Include="bin/WebDeploy.Web.dll">
-      <publishTime>11/04/2015 17:17:58</publishTime>
+      <publishTime>11/17/2015 18:10:36</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>10/26/2015 18:34:20</publishTime>
