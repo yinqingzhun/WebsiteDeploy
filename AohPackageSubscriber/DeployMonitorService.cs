@@ -60,7 +60,7 @@ namespace AohPackageSubscriber
                     //检测站点文件是否需要更新
                     if (!NeedToDownloadDeployedPackage())
                     {
-                        Thread.Sleep(5000);
+                        Thread.Sleep(interval);
                         continue;
                     }
 
@@ -68,7 +68,7 @@ namespace AohPackageSubscriber
                     uuid = GetNewestPackageUUId();
                     if (string.IsNullOrWhiteSpace(uuid))
                     {
-                        Thread.Sleep(5000);
+                        Thread.Sleep(interval);
                         continue;
                     }
                     logId = LogBeginingToUpdate(uuid);
@@ -91,7 +91,7 @@ namespace AohPackageSubscriber
                     //下载最新可用包文件
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 开始下载包文件。");
                     if (!DownloadDeployPackage(uuid))
-                        throw new Exception("下载文件失败。");
+                        throw new Exception("下载文件失败");
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 下载包文件完毕。");
                     //解压包文件
                     string tempFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, tempDir, tempFileName);
@@ -103,14 +103,16 @@ namespace AohPackageSubscriber
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 停止站点{0}。", b ? "成功" : "失败"));
                     //备份当前站点
                     string backup_dir = Path.Combine(websiteDirectoryBackup, DateTime.Now.ToString("yyyy-MM-dd_HHmmss.fff"));
-                    XCopy.Copy(websitePath, backup_dir, backup_exclude);
+                    if (!XCopy.Copy(websitePath, backup_dir, backup_exclude))
+                        throw new Exception("备份当前站点时复制文件失败");
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 备份站点物理目录完毕。");
                     //站点切换到备份目录
                     bool change = IISHelper.SetWebSitePath(websiteName, backup_dir);
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + string.Format(" 站点切换到备份目录{0}。", change ? "成功" : "失败"));
                     //覆盖站点的包文件 
                     string source_exclude = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config", "source_exclude.txt");
-                    XCopy.Copy(GetLookLikeWebDeployDirectory(tempDir), websitePath, source_exclude);
+                    if (!XCopy.Copy(GetLookLikeWebDeployDirectory(tempDir), websitePath, source_exclude))
+                        throw new Exception("覆盖站点的包文件时复制文件失败");
                     LogUpdatingProgress(logId, DateTime.Now.ToLocalTime() + " 覆盖站点物理目录完毕。");
                     //站点切换到默认目录
                     change = IISHelper.SetWebSitePath(websiteName, websitePath);
@@ -182,7 +184,7 @@ namespace AohPackageSubscriber
         }
         private int LogBeginingToUpdate(string uuid)
         {
-            LogHelper.Info(string.Format("开始更新站点{0}。", websiteName));
+            LogHelper.Info(string.Format("开始更新站点{0}，更新包的UUID为{1}。", websiteName, uuid));
             string s = HttpWebRequestHelper.Post(deployServiceHost + "/PackageReceive/BeginToReceive",
                    new Dictionary<string, object>() { { "uuid", uuid }, { "hostName", Dns.GetHostName() } });
             if (string.IsNullOrWhiteSpace(s))
