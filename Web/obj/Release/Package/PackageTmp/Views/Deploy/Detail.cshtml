@@ -60,7 +60,17 @@
         </div>
         <div class="row">
             <div class="table-td-name">@Html.DisplayNameFor(p => p.PackageName)</div>
-            <div class="table-td-value">@Html.DisplayFor(p => p.PackageName)</div>
+            <div class="table-td-value">
+                @Html.DisplayFor(p => p.PackageName)
+                @if (!Model.Verified)
+                {
+                    <button id="verifyPackage" data-pkgid="@Model.PackageId" style="font-weight: normal; background: transparent; border: 0; text-decoration: underline;">[通过验证]</button>
+                }
+                else
+                {
+                    <span style="color:green;">已验证</span>
+                }
+            </div>
             <div class="table-td-name">@Html.DisplayNameFor(p => p.CreateTime)</div>
             <div class="table-td-value">@Model.CreateTime.GetShortName()</div>
         </div>
@@ -121,10 +131,16 @@
             }, 'json');
         };
         $(function () {
-
-
             loadPackageReceivingRecordList();
             window.setInterval(loadPackageReceivingRecordList, 5000);
+
+            $('#verifyPackage').on('click', function () {
+                $.post('/Package/SetPackageVerified', 'packageId=' + $(this).attr('data-pkgid'),
+                    function (data) {
+                        if (data && data.ok)
+                            $(this).parent().html('<span style="color:green;">已验证</span>');
+                    });
+            });
 
         });
     </script>

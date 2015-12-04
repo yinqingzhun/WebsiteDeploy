@@ -71,7 +71,8 @@ namespace WebDeploy.Repository
                         CreateTime = p.CreateTime,
                         PackageName = p.PackageName,
                         PackageSize = p.PackageSize,
-                        File = p.File
+                        File = p.File,
+                        Verified = p.Verified
                     }).FirstOrDefault();
 
         }

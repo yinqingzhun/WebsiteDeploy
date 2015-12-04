@@ -158,13 +158,21 @@ namespace WebDeploy.Web.Controllers
             return RedirectToAction("Index");
 
         }
-
+        [HttpPost]
         public ActionResult SetVerified(int packageId)
         {
             PackageBusiness b = new PackageBusiness();
             b.SetPackageVerified(packageId);
 
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult SetPackageVerified(int packageId)
+        {
+            PackageBusiness b = new PackageBusiness();
+            bool ok = b.SetPackageVerified(packageId);
+
+            return Json(new { ok });
         }
 
         public FileResult GetPackageFile(string uuid)

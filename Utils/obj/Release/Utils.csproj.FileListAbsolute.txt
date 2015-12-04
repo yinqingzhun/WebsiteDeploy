@@ -6,3 +6,11 @@ E:\code\WebDeploy\Utils\bin\Release\log4net.xml
 E:\code\WebDeploy\Utils\bin\Release\Newtonsoft.Json.xml
 E:\code\WebDeploy\Utils\obj\Release\WebDeploy.Utils.dll
 E:\code\WebDeploy\Utils\obj\Release\Utils.csprojResolveAssemblyReference.cache
+G:\code\WebsiteDeploy\Utils\bin\Release\WebDeploy.Utils.dll
+G:\code\WebsiteDeploy\Utils\bin\Release\ICSharpCode.SharpZipLib.dll
+G:\code\WebsiteDeploy\Utils\bin\Release\log4net.dll
+G:\code\WebsiteDeploy\Utils\bin\Release\Newtonsoft.Json.dll
+G:\code\WebsiteDeploy\Utils\bin\Release\log4net.xml
+G:\code\WebsiteDeploy\Utils\bin\Release\Newtonsoft.Json.xml
+G:\code\WebsiteDeploy\Utils\obj\Release\Utils.csprojResolveAssemblyReference.cache
+G:\code\WebsiteDeploy\Utils\obj\Release\WebDeploy.Utils.dll

@@ -24,5 +24,6 @@ namespace WebDeploy.Model
         [Required]
         [Display(Name="包文件")]
         public string File { get; set; }
+        public bool Verified { get; set; }
     }
 }
